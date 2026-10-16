@@ -12,9 +12,9 @@ fn main() {
 
      io::stdin().read_line(&mut passed_string);
 
-     passed_string.trim();
+     let new_string = passed_string.trim();
 
-    println!({command}: command not found)
+    println!("{new_string}: command not found")
 
 
 
