@@ -3,7 +3,11 @@ use std::io::{self, Write};
 
 
 fn main() {
-    print!("$");
+    loop {
+        print!("$");
 
     io::stdout().flush().unwrap();
+    }
+
+    
 }
