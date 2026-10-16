@@ -14,8 +14,14 @@ fn main() {
 
      let new_string = passed_string.trim();
 
-    println!("{new_string}: command not found")
+     if new_string.starts_with("exit") {
+        break;
+     } else {
+        println!("{new_string}: command not found")
 
+     }
+
+    
 
 
     }
