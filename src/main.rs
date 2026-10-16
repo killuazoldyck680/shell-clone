@@ -4,15 +4,15 @@ use std::io::{self, Write, Read};
 
 fn main() {
     loop {
-        print!("$");
+        print!("$ ");
 
     io::stdout().flush().unwrap();
 
-    let new_string = String::new();
+    let mut new_string = String::new();
 
     std::io::Read::read_to_string(&mut new_string);
 
-    
+
     }
 
     
