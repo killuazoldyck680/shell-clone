@@ -10,7 +10,9 @@ fn main() {
 
     let mut passed_string = String::new();
 
-    let new_string = io::stdin().read_line(&mut passed_string).trim();
+     io::stdin().read_line(&mut passed_string);
+
+     passed_string.trim();
 
     println!({command}: command not found)
 
