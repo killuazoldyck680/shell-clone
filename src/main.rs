@@ -1,4 +1,4 @@
-use std::io::{self, Write};
+use std::io::{self, Write, Read};
 
 
 
@@ -9,6 +9,10 @@ fn main() {
     io::stdout().flush().unwrap();
 
     let new_string = String::new();
+
+    std::io::Read::read_to_string(&mut new_string);
+
+    
     }
 
     
