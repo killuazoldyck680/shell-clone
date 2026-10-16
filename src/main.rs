@@ -8,9 +8,12 @@ fn main() {
 
     io::stdout().flush().unwrap();
 
-    let mut new_string = String::new();
+    let mut passed_string = String::new();
 
-    std::io::Read::read_to_string(&mut new_string);
+    let new_string = io::stdin().read_line(&mut passed_string).trim();
+
+    println!({command}: command not found)
+
 
 
     }
