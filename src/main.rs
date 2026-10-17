@@ -19,7 +19,7 @@ fn main() {
      } else if new_string.starts_with("echo ") {
         
 
-        let echo_string =  &new_string[4..].trim();
+        let echo_string =  &new_string[5..].trim();
 
         println!("{echo_string}");
      }
