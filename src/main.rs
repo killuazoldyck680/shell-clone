@@ -16,7 +16,11 @@ fn main() {
 
      if new_string.starts_with("exit") {
         break;
-     } else {
+     } else if new_string.starts_with("echo") {
+        
+     }
+     
+     else {
         println!("{new_string}: command not found")
 
      }
