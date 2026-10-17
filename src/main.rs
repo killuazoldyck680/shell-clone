@@ -6,7 +6,7 @@ fn main() {
     loop {
         print!("$ ");
 
-    io::stdout().flush().unwrap();
+    io::stdout().flush().unwrap(); 
 
     let mut passed_string = String::new();
 
@@ -17,7 +17,9 @@ fn main() {
      if new_string.starts_with("exit") {
         break;
      } else if new_string.starts_with("echo") {
-        
+        new_string.drain(0..4)
+
+        let echo_string =  new_string.trim();
      }
      
      else {
