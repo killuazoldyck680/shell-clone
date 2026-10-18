@@ -23,10 +23,10 @@ fn main() {
 
         println!("{echo_string}");
      } else if new_string.starts_with("type ") {
-         let type_string = &new_string[5..].trim();
+         let type_string = new_string[5..].trim();
 
          match type_string {
-            "echo" ||  "type" || "exit"   => {
+            "echo" |  "type" | "exit"   => {
             println!("{type_string} is a shell builtin")
            } 
 
