@@ -31,9 +31,13 @@ fn main() {
            } 
 
            _ => {
-            let path:Result<String, VarError>  = std::env::var(PATH).unwrap_or_default();
+            let path  = std::env::var(PATH).unwrap_or_default();
 
             let path_dir = path.split(':');
+
+            for dir in path_dir {
+                let full_path = format!("{dir}/{target_cmd}");
+            }
 
 
             println!("{type_string}: not found")
