@@ -39,7 +39,7 @@ fn main() {
                 let full_path = format!("{dir}/{type_string}");
 
                 if std::path::Path::new(&full_path).exists() {
-                    
+                    println!("{type_string} is {full_path}")
                 }
             }
 
