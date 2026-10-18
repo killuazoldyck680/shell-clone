@@ -31,7 +31,9 @@ fn main() {
            } 
 
            _ => {
-            let path = std::env::var(PATH);
+            let path:Result<String, VarError>  = std::env::var(PATH).unwrap_or_default();
+
+            let path_dir = path.split(':');
 
 
             println!("{type_string}: not found")
