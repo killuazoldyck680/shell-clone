@@ -31,6 +31,9 @@ fn main() {
            } 
 
            _ => {
+            let path = std::env::var(PATH);
+
+
             println!("{type_string}: not found")
            }
          }
