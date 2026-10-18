@@ -31,12 +31,16 @@ fn main() {
            } 
 
            _ => {
-            let path  = std::env::var(PATH).unwrap_or_default();
+            let path  = std::env::var("PATH").unwrap_or_default();
 
             let path_dir = path.split(':');
 
             for dir in path_dir {
-                let full_path = format!("{dir}/{target_cmd}");
+                let full_path = format!("{dir}/{type_string}");
+
+                if std::path::Path::new(&full_path).exists() {
+                    
+                }
             }
 
 
