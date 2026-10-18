@@ -35,6 +35,8 @@ fn main() {
 
             let path_dir = path.split(':');
 
+            let mut found = false;
+
             for dir in path_dir {
                 let full_path = format!("{dir}/{type_string}");
 
