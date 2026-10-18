@@ -26,7 +26,9 @@ fn main() {
          let type_string = &new_string[5..].trim();
 
          if type_string == "echo" | "type" |"exit" {
-            println!("{type_string}"is a shell builtin)
+            println!("{type_string} is a shell builtin")
+         } else {
+            println!("{type_string}: not found")
          }
 
 
