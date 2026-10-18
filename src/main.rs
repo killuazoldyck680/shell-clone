@@ -22,6 +22,8 @@ fn main() {
         let echo_string =  &new_string[5..].trim();
 
         println!("{echo_string}");
+     } else if new_string.starts_with("type ") {
+         
      }
      
      else {
