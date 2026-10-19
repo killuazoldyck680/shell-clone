@@ -81,6 +81,10 @@ fn main() {
 
               let mut executable_path = None;
 
+              for dir in path.split(delimeter) {
+                let full_path = format!("{dir}/{command}");
+              }
+
 
             }
         }
