@@ -35,7 +35,7 @@ fn main() {
             if let Some(target) = args.first() {
                 match *target {
                      "echo" |  "type" | "exit"   => {
-            println!("{type_string} is a shell builtin")
+            println!("{} is a shell builtin", target)
            } 
 
            _ => {
@@ -103,6 +103,19 @@ fn main() {
                     }
               }
 
+              if let Some(exec_path) = executable_path {
+                    match Command::new(&exec_path).args(args).status() {
+                        Ok(_status) => {}
+                        Err(_) => {
+                            println!("{}: failed to execute", command);
+                        }
+                    }
+                } else {
+                    println!("{}: not found", command);
+                }
+            }
+        }
+
 
             }
         }
@@ -110,39 +123,4 @@ fn main() {
 
     }
 
-    let mut passed_string = String::new();
-
-     io::stdin().read_line(&mut passed_string);
-
-     let new_string = passed_string.trim();
-
-     if new_string.starts_with("exit") {
-        break;
-     } else if new_string.starts_with("echo ") {
-        
-
-        let echo_string =  &new_string[5..].trim();
-
-        println!("{echo_string}");
-     } else if new_string.starts_with("type ") {
-         let type_string = new_string[5..].trim();
-
-         match type_string {
-           
-         }
-
-
-     }
-     
-     else {
-        println!("{new_string}: command not found")
-
-     }
-
     
-
-
-    }
-
-    
-}
