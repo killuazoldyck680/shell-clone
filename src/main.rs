@@ -14,6 +14,14 @@ fn main() {
     stdin.read_line(&mut input).unwrap();
     let input = input.trim();
 
+    if input.is_empty() {
+        continue;
+    }
+
+    let parts: Vec<&str> = input.split_whitespace().collect();
+    let command = parts[0];
+    let args = &parts[1..];
+
     let mut passed_string = String::new();
 
      io::stdin().read_line(&mut passed_string);
