@@ -11,6 +11,8 @@ fn main() {
 
     let stdin = io::stdin();
     let mut input = String::new();
+    stdin.read_line(&mut input).unwrap();
+    let input = input.trim();
 
     let mut passed_string = String::new();
 
