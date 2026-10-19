@@ -83,6 +83,24 @@ fn main() {
 
               for dir in path.split(delimeter) {
                 let full_path = format!("{dir}/{command}");
+
+                let file_path = std::path::Path::new(&full_path);
+
+                if file_path.exists() {
+                        #[cfg(unix)]
+                        {
+                            use std::os::unix::fs::PermissionsExt;
+                            if let Ok(metadata) = std::fs::metadata(file_path) {
+                                if metadata.permissions().mode() & 0o111 == 0 {
+                                    continue;
+                                }
+                            } else {
+                                continue;
+                            }
+                        }
+                        executable_path = Some(full_path);
+                        break;
+                    }
               }
 
 
