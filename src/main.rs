@@ -30,6 +30,14 @@ fn main() {
         "echo" => {
             println!("{}", args.join(" "));
         }
+
+        "type" => {
+            if let Some(target) = args.first() {
+                match *target {
+                    
+                }
+            }
+        }
     }
 
     let mut passed_string = String::new();
