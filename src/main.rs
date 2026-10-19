@@ -74,6 +74,14 @@ fn main() {
     }
 }
                 }
+
+               let path =  std::env::var("PATH").unwrap_or_default();
+
+              let delimeter = if cfg!(windows) { ';' } else { ':' };
+
+              let mut executable_path = None;
+
+
             }
         }
 
