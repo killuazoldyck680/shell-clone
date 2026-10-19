@@ -63,7 +63,7 @@ fn main() {
                 }
             }
 
-            println!("{type_string} is {full_path}");
+            println!("{} is {}", target, full_path);
             found = true;
             break;
         }
@@ -77,7 +77,7 @@ fn main() {
             }
         }
 
-        
+
     }
 
     let mut passed_string = String::new();
