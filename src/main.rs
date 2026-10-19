@@ -9,6 +9,9 @@ fn main() {
 
     io::stdout().flush().unwrap(); 
 
+    let stdin = io::stdin();
+    let mut input = String::new();
+
     let mut passed_string = String::new();
 
      io::stdin().read_line(&mut passed_string);
