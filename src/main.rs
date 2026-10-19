@@ -72,7 +72,11 @@ fn main() {
             }
 
             "pwd" => {
-               let cur_dir =  std::env::current_dir();
+               let cur_dir =  std::env::current_dir().expect("Failed to get current directory");
+
+               println!("{}", cur_dir.display());
+
+
             }
 
             // This is the separate fallback arm for external programs
