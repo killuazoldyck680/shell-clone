@@ -22,6 +22,16 @@ fn main() {
     let command = parts[0];
     let args = &parts[1..];
 
+    match command {
+        "exit" => {
+            break;
+        }
+
+        "echo" => {
+            println!("{}", args.join(" "));
+        }
+    }
+
     let mut passed_string = String::new();
 
      io::stdin().read_line(&mut passed_string);
