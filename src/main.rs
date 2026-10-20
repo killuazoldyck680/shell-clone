@@ -31,7 +31,7 @@ fn main() {
             "type" => {
                 if let Some(target) = args.first() {
                     match *target {
-                        "echo" | "type" | "exit" | "pwd" => {
+                        "echo" | "type" | "exit" | "pwd" | "cd" => {
                             println!("{} is a shell builtin", target);
                         } 
                         _ => {
@@ -80,7 +80,7 @@ fn main() {
             }
 
             "cd" => {
-                
+
             }
 
             // This is the separate fallback arm for external programs
