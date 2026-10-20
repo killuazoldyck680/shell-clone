@@ -80,6 +80,8 @@ fn main() {
             }
 
             "cd" => {
+                if let Some(target) = args.first();
+
                 let cur_dir = std::env::current_dir();
 
                 match cur_dir {
