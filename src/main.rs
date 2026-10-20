@@ -80,7 +80,7 @@ fn main() {
             }
 
             "cd" => {
-
+                let cur_dir = std::env::current_dir();
             }
 
             // This is the separate fallback arm for external programs
