@@ -80,17 +80,20 @@ fn main() {
             }
 
             "cd" => {
-                if let Some(target) = args.first();
+                if let Some(target) = args.first() {
+                    let cur_dir = std::env::set_current_dir(target);
 
-                let cur_dir = std::env::current_dir();
+                    match cur_dir {
+                  Ok(()) => {}
 
-                match cur_dir {
-                  Ok(s) => s,
-
-                  Err(e) => {
-                    eprintln!("cd: {e}: No such file or directory")
+                  Err(_) => {
+                    println!("cd: <directory>: No such file or directory")
                   }  
                 }
+                }
+
+                
+                
             }
 
             // This is the separate fallback arm for external programs
