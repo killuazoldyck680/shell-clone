@@ -82,10 +82,10 @@ fn main() {
             "cd" => {
                 if let Some(target) = args.first() {
                     if target == "~" {
-                        let home = std::env::var;
+                        let home = std::env::var("HOME");
 
                        match home {
-                        Ok() => {
+                        Ok(home_path) => {
                             let result = std::env::set_current_dir(target);
                         }
 
