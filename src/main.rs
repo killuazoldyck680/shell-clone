@@ -81,7 +81,7 @@ fn main() {
 
             "cd" => {
                 if let Some(target) = args.first() {
-                    if target == "~" {
+                    let resolved_target = if target == "~" {
                         let home = std::env::var("HOME");
 
                        match home {
