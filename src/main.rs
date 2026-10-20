@@ -81,6 +81,14 @@ fn main() {
 
             "cd" => {
                 let cur_dir = std::env::current_dir();
+
+                match cur_dir {
+                  Ok(s) => s,
+
+                  Err(e) => {
+                    eprintln!("cd: {e}: No such file or directory")
+                  }  
+                }
             }
 
             // This is the separate fallback arm for external programs
