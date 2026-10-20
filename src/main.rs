@@ -81,17 +81,18 @@ fn main() {
 
             "cd" => {
                 if let Some(target) = args.first() {
-                    let resolved_target = if target == "~" {
-                        let home = std::env::var("HOME");
+                    let resolved_target = if *target == "~" {
+                       match std::env::var("HOME") {
+                        Ok(home_path) => home_path,
 
-                       match home {
-                        Ok(home_path) => {
-                            let result = std::env::set_current_dir(target);
+                        Err(_) => {
+                            println!("cd: ~: Home directory not set");
+                            return;
                         }
-
-                        Err(_) => println!("Error")
                        } 
-                    }
+                    } else {
+                        target.to_string()
+                    };
 
                     let cur_dir = std::env::set_current_dir(target);
 
