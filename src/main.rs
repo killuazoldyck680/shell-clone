@@ -81,6 +81,10 @@ fn main() {
 
             "cd" => {
                 if let Some(target) = args.first() {
+                    if target == "~" {
+                        let home = 
+                    }
+
                     let cur_dir = std::env::set_current_dir(target);
 
                     match cur_dir {
