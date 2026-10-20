@@ -83,6 +83,14 @@ fn main() {
                 if let Some(target) = args.first() {
                     if target == "~" {
                         let home = std::env::var;
+
+                       match home {
+                        Ok() => {
+                            let result = std::env::set_current_dir(target);
+                        }
+
+                        Err(_) => println!("Error")
+                       } 
                     }
 
                     let cur_dir = std::env::set_current_dir(target);
