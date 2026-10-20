@@ -87,7 +87,7 @@ fn main() {
                   Ok(()) => {}
 
                   Err(_) => {
-                    println!("cd: <directory>: No such file or directory")
+                    println!("cd: {target}: No such file or directory")
                   }  
                 }
                 }
