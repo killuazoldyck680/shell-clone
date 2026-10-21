@@ -33,15 +33,30 @@ fn main() {
         } else {
             if c == '\'' {
                 in_single_quote = true;
-            } else if c.is_whitespace() && !current_arg.is_empty() {
+            } else if c.is_whitespace()  {
+                if current_arg.is_empty() {
+                
+            }
+
                 args.push(current_arg);
 
                 current_arg = String::new();
-            } else {
+
+                 
+            }  else {
                 current_arg.push(c);
             }
         }
         }
+
+        if !current_arg.is_empty() { args.push(current_arg); }
+
+        if args.is_empty() {
+            continue;
+        }
+
+        let command = args[0].as_str();
+        let args = &args[1..];
 
         
         match command {
