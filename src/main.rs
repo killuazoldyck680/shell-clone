@@ -15,13 +15,15 @@ fn main() {
             continue;
         }
 
-        for c in input.chars() {
-            let mut args = Vec::new();
+        let mut args = Vec::new();
 
         let mut current_arg = String::new();
         
         let mut in_single_quote = false;
 
+
+        for c in input.chars() {
+            
         if in_single_quote {
             if c == '\'' {
                 in_single_quote = false;
@@ -33,6 +35,10 @@ fn main() {
                 in_single_quote = true;
             } else if c.is_whitespace() && !current_arg.is_empty() {
                 args.push(current_arg);
+
+                current_arg = String::new();
+            } else {
+                current_arg.push(c);
             }
         }
         }
