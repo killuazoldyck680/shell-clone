@@ -15,10 +15,7 @@ fn main() {
             continue;
         }
 
-        let parts: Vec<&str> = input.split_whitespace().collect();
-        let command = parts[0];
-        let args = &parts[1..];
-
+        
         match command {
             "exit" => {
                 break;
@@ -81,20 +78,20 @@ fn main() {
 
             "cd" => {
                 if let Some(target) = args.first() {
-                    let resolved_target = if *target == "~" {
-                       match std::env::var("HOME") {
-                        Ok(home_path) => home_path,
-
-                        Err(_) => {
-                            println!("cd: ~: Home directory not set");
-                            return;
-                        }
-                       } 
-                    } else {
-                        target.to_string()
-                    };
-
-                    let cur_dir = std::env::set_current_dir(target);
+        // Resolve ~ to HOME (Unix/Mac) or USERPROFILE (Windows), or keep the original target
+        let resolved_target = if *target == "~" {
+            if let Ok(home) = std::env::var("HOME") {
+                home
+            } else if let Ok(profile) = std::env::var("USERPROFILE") {
+                profile
+            } else {
+                println!("cd: ~: Home directory not set");
+                return;
+            }
+        } else {
+            target.to_string()
+        };
+                    let cur_dir = std::env::set_current_dir(&resolved_target);
 
                     match cur_dir {
                   Ok(()) => {}
