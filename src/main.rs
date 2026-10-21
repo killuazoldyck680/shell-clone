@@ -15,7 +15,12 @@ fn main() {
             continue;
         }
 
-        
+        let parts: Vec<&str> = input.chars().collect();
+
+        let mut args = Vec::new();
+        let command = parts[0];
+        let args = &parts[1..];
+
         match command {
             "exit" => {
                 break;
