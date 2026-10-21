@@ -25,9 +25,15 @@ fn main() {
         if in_single_quote {
             if c == '\'' {
                 in_single_quote = false;
+            } else {
+                current_arg.push(c);
             }
         } else {
-
+            if c == '\'' {
+                in_single_quote = true;
+            } else if c.is_whitespace() && !current_arg.is_empty() {
+                args.push(current_arg);
+            }
         }
         }
 
