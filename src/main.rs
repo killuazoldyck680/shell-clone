@@ -15,13 +15,23 @@ fn main() {
             continue;
         }
 
-        let parts: Vec<&str> = input.chars();
-
-        let mut args = Vec::new();
+        for c in input.chars() {
+            let mut args = Vec::new();
 
         let mut current_arg = String::new();
         
         let mut in_single_quote = false;
+
+        if in_single_quote {
+            if c == '\'' {
+                in_single_quote = false;
+            }
+        } else {
+
+        }
+        }
+
+        
         match command {
             "exit" => {
                 break;
