@@ -15,9 +15,11 @@ fn main() {
             continue;
         }
 
-        let parts: Vec<&str> = input.chars().collect();
+        let parts: Vec<&str> = input.chars();
 
         let mut args = Vec::new();
+
+        let mut current_arg = String::new();
         let command = parts[0];
         let args = &parts[1..];
 
