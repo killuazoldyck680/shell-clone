@@ -70,7 +70,7 @@ fn main() {
 
             "type" => {
                 if let Some(target) = args.first() {
-                    match *target {
+                    match target.as_str() {
                         "echo" | "type" | "exit" | "pwd" | "cd" => {
                             println!("{} is a shell builtin", target);
                         } 
