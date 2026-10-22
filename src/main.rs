@@ -12,7 +12,7 @@ fn main() {
         let input = input.trim();
 
         if input.is_empty() {
-            continue;
+            continue
         }
 
         let mut args = Vec::new();
