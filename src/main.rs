@@ -35,6 +35,8 @@ fn main() {
         } else if in_double_quote {
             if c == "" {
                 in_double_quote = false;
+            } else {
+                args.push(current_arg);
             }
         }
         
@@ -45,6 +47,8 @@ fn main() {
             } else if c.is_whitespace()  {
                 if current_arg.is_empty() {
                 
+            } else if c == "" {
+                in_double_quote = true;
             }
 
                 args.push(current_arg);
