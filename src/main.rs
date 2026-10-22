@@ -4,7 +4,7 @@ use std::process::Command;
 fn main() {
     loop {
         print!("$ ");
-        io::stdout().flush().unwrap(); 
+        io::stdout().flush().unwrap();
 
         let stdin = io::stdin();
         let mut input = String::new();
@@ -12,77 +12,68 @@ fn main() {
         let input = input.trim();
 
         if input.is_empty() {
-            continue
+            continue;
         }
 
         let mut args = Vec::new();
 
         let mut current_arg = String::new();
-        
+
         let mut in_single_quote = false;
 
         let mut in_double_quote = false;
 
         let mut is_escaped = false;
 
-
-         let mut chars = input.chars().peekable(); while let Some(c) = chars.next() {
-            
-        if in_single_quote {
-            if c == '\'' {
-                in_single_quote = false;
-            } else {
-                current_arg.push(c);
-            }
-        } else if in_double_quote {
-            if c == '"' {
-                in_double_quote = false;
-            } else if c == '\\' {
-               if let Some(&next_char) = chars.peek() {
-                if next_char == '"' || next_char == '\\' {
-                    chars.next();
-                    current_arg.push(next_char);
+        let mut chars = input.chars().peekable();
+        while let Some(c) = chars.next() {
+            if in_single_quote {
+                if c == '\'' {
+                    in_single_quote = false;
                 } else {
                     current_arg.push(c);
                 }
-               } else {
-                   current_arg.push(c);
-               }
+            } else if in_double_quote {
+                if c == '"' {
+                    in_double_quote = false;
+                } else if c == '\\' {
+                    if let Some(&next_char) = chars.peek() {
+                        if next_char == '"' || next_char == '\\' {
+                            chars.next();
+                            current_arg.push(next_char);
+                        } else {
+                            current_arg.push(c);
+                        }
+                    } else {
+                        current_arg.push(c);
+                    }
+                } else {
+                    current_arg.push(c);
+                }
+            } else if is_escaped {
+                current_arg.push(c);
 
-
-            }
-            
-             else {
+                is_escaped = false;
+            } else if c == '\'' {
+                in_single_quote = true;
+            } else if c == '"' {
+                in_double_quote = true;
+            } else if c == '\\' {
+                is_escaped = true;
+            } else if c.is_whitespace() {
+                if !current_arg.is_empty() {
+                    args.push(current_arg);
+                    current_arg = String::new();
+                } else {
+                }
+            } else {
                 current_arg.push(c);
             }
-        } else if is_escaped {
-            current_arg.push(c);
-
-            is_escaped = false;
-        }
-        
-         else if  c == '\''{
-            in_single_quote = true;
-
-        } else if c == '"' {
-            in_double_quote = true;
-        } else if c == '\\' {
-            is_escaped = true;
-        }
-        
-         else if c.is_whitespace() {
-            if !current_arg.is_empty() {
-                args.push(current_arg);
-                current_arg = String::new();
-            } else {
-                
-            }
-        } else {
-            current_arg.push(c);
-        }
         }
 
-        if !current_arg.is_empty() { args.push(current_arg); }
+        if !current_arg.is_empty() {
+            args.push(current_arg);
+        }
 
         if args.is_empty() {
             continue;
@@ -91,7 +82,6 @@ fn main() {
         let command = args[0].as_str();
         let args = &args[1..];
 
-        
         match command {
             "exit" => {
                 break;
@@ -106,7 +96,7 @@ fn main() {
                     match target.as_str() {
                         "echo" | "type" | "exit" | "pwd" | "cd" => {
                             println!("{} is a shell builtin", target);
-                        } 
+                        }
                         _ => {
                             let path = std::env::var("PATH").unwrap_or_default();
                             let delimiter = if cfg!(windows) { ';' } else { ':' };
@@ -123,7 +113,7 @@ fn main() {
                                         use std::os::unix::fs::PermissionsExt;
                                         if let Ok(metadata) = std::fs::metadata(file_path) {
                                             if metadata.permissions().mode() & 0o111 == 0 {
-                                                continue; 
+                                                continue;
                                             }
                                         } else {
                                             continue;
@@ -145,92 +135,87 @@ fn main() {
             }
 
             "pwd" => {
-               let cur_dir =  std::env::current_dir().expect("Failed to get current directory");
+                let cur_dir = std::env::current_dir().expect("Failed to get current directory");
 
-               println!("{}", cur_dir.display());
-
-
+                println!("{}", cur_dir.display());
             }
 
             "cd" => {
                 if let Some(target) = args.first() {
-        // Resolve ~ to HOME (Unix/Mac) or USERPROFILE (Windows), or keep the original target
-        let resolved_target = if *target == "~" {
-            if let Ok(home) = std::env::var("HOME") {
-                home
-            } else if let Ok(profile) = std::env::var("USERPROFILE") {
-                profile
-            } else {
-                println!("cd: ~: Home directory not set");
-                return;
-            }
-        } else {
-            target.to_string()
-        };
+                    // Resolve ~ to HOME (Unix/Mac) or USERPROFILE (Windows), or keep the original target
+                    let resolved_target = if *target == "~" {
+                        if let Ok(home) = std::env::var("HOME") {
+                            home
+                        } else if let Ok(profile) = std::env::var("USERPROFILE") {
+                            profile
+                        } else {
+                            println!("cd: ~: Home directory not set");
+                            return;
+                        }
+                    } else {
+                        target.to_string()
+                    };
                     let cur_dir = std::env::set_current_dir(&resolved_target);
 
                     match cur_dir {
-                  Ok(()) => {}
+                        Ok(()) => {}
 
-                  Err(_) => {
-                    println!("cd: {target}: No such file or directory")
-                  }  
+                        Err(_) => {
+                            println!("cd: {target}: No such file or directory")
+                        }
+                    }
                 }
-                }
-
-                
-                
             }
 
             // This is the separate fallback arm for external programs
             _ => {
                 // Replace your external program lookup block (in the `_ =>` match arm) with this:
 
-let path = std::env::var("PATH").unwrap_or_default();
-let delimiter = if cfg!(windows) { ';' } else { ':' };
-let mut executable_path = None;
+                let path = std::env::var("PATH").unwrap_or_default();
+                let delimiter = if cfg!(windows) { ';' } else { ':' };
+                let mut executable_path = None;
 
-for dir in path.split(delimiter) {
-    let mut full_path = format!("{dir}/{command}");
-    let file_path = std::path::Path::new(&full_path);
-    let mut exists = file_path.exists();
+                for dir in path.split(delimiter) {
+                    let mut full_path = format!("{dir}/{command}");
+                    let file_path = std::path::Path::new(&full_path);
+                    let mut exists = file_path.exists();
 
-    // Windows local fallback: check for .exe if the base file doesn't exist
-    if !exists && cfg!(windows) {
-        let exe_path = format!("{dir}/{command}.exe");
-        if std::path::Path::new(&exe_path).exists() {
-            full_path = exe_path;
-            exists = true;
-        }
-    }
+                    // Windows local fallback: check for .exe if the base file doesn't exist
+                    if !exists && cfg!(windows) {
+                        let exe_path = format!("{dir}/{command}.exe");
+                        if std::path::Path::new(&exe_path).exists() {
+                            full_path = exe_path;
+                            exists = true;
+                        }
+                    }
 
-    if exists {
-        #[cfg(unix)]
-        {
-            use std::os::unix::fs::PermissionsExt;
-            if let Ok(metadata) = std::fs::metadata(&full_path) {
-                if metadata.permissions().mode() & 0o111 == 0 {
-                    continue;
+                    if exists {
+                        #[cfg(unix)]
+                        {
+                            use std::os::unix::fs::PermissionsExt;
+                            if let Ok(metadata) = std::fs::metadata(&full_path) {
+                                if metadata.permissions().mode() & 0o111 == 0 {
+                                    continue;
+                                }
+                            } else {
+                                continue;
+                            }
+                        }
+                        executable_path = Some(full_path);
+                        break;
+                    }
                 }
-            } else {
-                continue;
-            }
-        }
-        executable_path = Some(full_path);
-        break;
-    }
-}
 
-if let Some(exec_path) = executable_path {
-    match Command::new(&exec_path).args(args).status() {
-        Ok(_status) => {}
-        Err(_) => {
-            println!("{}: failed to execute", command);
-        }
-    }
-} else {
-    println!("{}: not found", command);
-}
+                if let Some(exec_path) = executable_path {
+                    match Command::new(&exec_path).args(args).status() {
+                        Ok(_status) => {}
+                        Err(_) => {
+                            println!("{}: failed to execute", command);
+                        }
+                    }
+                } else {
+                    println!("{}: not found", command);
+                }
             }
         }
     }
