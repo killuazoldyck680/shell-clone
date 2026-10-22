@@ -21,6 +21,8 @@ fn main() {
         
         let mut in_single_quote = false;
 
+        let mut in_double_quote = false;
+
 
         for c in input.chars() {
             
