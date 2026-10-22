@@ -40,6 +40,10 @@ fn main() {
             } else {
                 current_arg.push(c);
             }
+        } else if is_escaped {
+            current_arg.push(c);
+
+            is_escaped = false;
         }
         
          else if  c == '\''{
@@ -47,14 +51,18 @@ fn main() {
 
         } else if c == '"' {
             in_double_quote = true;
-        } else if c.is_whitespace() {
+        } else if c == '\\' {
+            is_escaped = true;
+        }
+        
+         else if c.is_whitespace() {
             if !current_arg.is_empty() {
                 args.push(current_arg);
                 current_arg = String::new();
             } else {
                 current_arg.push(c);
             }
-        }
+        } 
         }
 
         if !current_arg.is_empty() { args.push(current_arg); }
