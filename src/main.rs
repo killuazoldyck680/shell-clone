@@ -26,7 +26,7 @@ fn main() {
         let mut is_escaped = false;
 
 
-        for c in input.chars() {
+        for c in input.chars().peekable() {
             
         if in_single_quote {
             if c == '\'' {
@@ -37,7 +37,9 @@ fn main() {
         } else if in_double_quote {
             if c == '"' {
                 in_double_quote = false;
-            } else {
+            }
+            
+             else {
                 current_arg.push(c);
             }
         } else if is_escaped {
