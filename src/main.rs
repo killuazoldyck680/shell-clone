@@ -38,13 +38,16 @@ fn main() {
             if c == '"' {
                 in_double_quote = false;
             } else if c == '\\' {
-                if c.peek() == '" \\ '  {
-                    c.next()
+               if let Some(&next_char) = chars.peek() {
+                if next_char == '"' || next_char == '\\' {
+                    chars.next();
+                    current_arg.push(next_char);
                 } else {
                     current_arg.push(c);
                 }
-
-                current_arg.push(c);
+               } else {
+                   current_arg.push(c);
+               }
 
 
             }
