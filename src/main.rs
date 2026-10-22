@@ -60,9 +60,11 @@ fn main() {
                 args.push(current_arg);
                 current_arg = String::new();
             } else {
-                current_arg.push(c);
+                
             }
-        } 
+        } else {
+            current_arg.push(c);
+        }
         }
 
         if !current_arg.is_empty() { args.push(current_arg); }
