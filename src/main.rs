@@ -23,6 +23,8 @@ fn main() {
 
         let mut in_double_quote = false;
 
+        let mut is_escaped = false;
+
 
         for c in input.chars() {
             
@@ -33,32 +35,23 @@ fn main() {
                 current_arg.push(c);
             }
         } else if in_double_quote {
-            if c == '""' {
+            if c == '"' {
                 in_double_quote = false;
             } else {
                 current_arg.push(c);
             }
         }
         
-         else {
+         else if  c == '\''{
+            in_single_quote = true;
 
-            if c == '\'' {
-                in_single_quote = true;
-            } else if c.is_whitespace()  {
-                if current_arg.is_empty() {
-                
-            } 
-
+        } else if c == '"' {
+            in_double_quote = true;
+        } else if c.is_whitespace() {
+            if !current_arg.is_empty() {
                 args.push(current_arg);
-
                 current_arg = String::new();
-
-                 
-            }  else {
-                 if c == '""' {
-                in_double_quote = true;
-            }
-
+            } else {
                 current_arg.push(c);
             }
         }
