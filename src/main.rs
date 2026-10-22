@@ -37,6 +37,16 @@ fn main() {
         } else if in_double_quote {
             if c == '"' {
                 in_double_quote = false;
+            } else if c == '\\' {
+                if c.peek() == '" \\ '  {
+                    c.next()
+                } else {
+                    current_arg.push(c);
+                }
+
+                current_arg.push(c);
+
+
             }
             
              else {
