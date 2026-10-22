@@ -26,7 +26,7 @@ fn main() {
         let mut is_escaped = false;
 
 
-        for c in input.chars().peekable() {
+         let mut chars = input.chars().peekable(); while let Some(c) = chars.next() {
             
         if in_single_quote {
             if c == '\'' {
