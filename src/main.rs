@@ -32,7 +32,14 @@ fn main() {
             } else {
                 current_arg.push(c);
             }
-        } else {
+        } else if in_double_quote {
+            if c == "" {
+                in_double_quote = false;
+            }
+        }
+        
+         else {
+
             if c == '\'' {
                 in_single_quote = true;
             } else if c.is_whitespace()  {
