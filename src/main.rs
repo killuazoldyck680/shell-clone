@@ -81,6 +81,8 @@ fn main() {
 
         let command = args[0].as_str();
         let args = &args[1..];
+        let mut redirect_file: Option<std::fs::File> = None;
+
 
         if args.len() >= 2 {
             if args[args.len() - 2] == ">" || args[args.len() - 2] == "1>" {
@@ -88,7 +90,9 @@ fn main() {
                 let redirection_operator = args.pop();
 
                 match target_filename {
-                    Some(filename) => {}
+                    Some(file) => {
+                          redirect_file = Some(std::fs::File::create(&file).expect("Failed to create file"));
+                    }
 
                     None => {}
                 }
