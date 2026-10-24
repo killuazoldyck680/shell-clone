@@ -87,6 +87,12 @@ fn main() {
                 let target_filename = args.pop();
                 let redirection_operator = args.pop();
             }
+
+            if let file = std::fs::File::create(&filename) {
+
+            } else {
+                println!("Error")
+            }
         }
         match command {
             "exit" => {
