@@ -85,7 +85,7 @@ fn main() {
         if args.len() >= 2 {
             if args[args.len() - 2] == ">" || args[args.len() - 2] == "1>" {
                 let target_filename = args.pop();
-                let
+                let redirection_operator = args.pop();
             }
         }
         match command {
