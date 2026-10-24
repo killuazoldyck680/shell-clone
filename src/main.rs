@@ -82,9 +82,10 @@ fn main() {
         let command = args[0].as_str();
         let args = &args[1..];
 
-        if args.len() > 2 {
-            if args[args.len() - 2] == ">" || [args.len() - 2] == "1>" {
-                
+        if args.len() >= 2 {
+            if args[args.len() - 2] == ">" || args[args.len() - 2] == "1>" {
+                let target_filename = args.pop();
+                let
             }
         }
         match command {
