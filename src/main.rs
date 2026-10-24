@@ -82,8 +82,10 @@ fn main() {
         let command = args[0].as_str();
         let args = &args[1..];
 
-        if args.len() > {
-            
+        if args.len() > 2 {
+            if args[args.len() - 2] == ">" || [args.len() - 2] == "1>" {
+                
+            }
         }
         match command {
             "exit" => {
