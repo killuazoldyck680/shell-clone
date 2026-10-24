@@ -86,13 +86,15 @@ fn main() {
             if args[args.len() - 2] == ">" || args[args.len() - 2] == "1>" {
                 let target_filename = args.pop();
                 let redirection_operator = args.pop();
+
+                match target_filename {
+                    Some(filename) => {}
+
+                    None => {}
+                }
             }
 
-            if let file = std::fs::File::create(&filename) {
-
-            } else {
-                println!("Error")
-            }
+           
         }
         match command {
             "exit" => {
