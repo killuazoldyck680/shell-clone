@@ -82,6 +82,10 @@ fn main() {
         let command = args[0].as_str();
         let args = &args[1..];
 
+        if args.last() == > || args.last() == 1> {
+            
+        }
+
         match command {
             "exit" => {
                 break;
