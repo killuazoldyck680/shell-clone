@@ -89,6 +89,10 @@ fn main() {
 
                 match target_filename {
                     Some(file) => {
+                        if let Some(parent) = std::path::Path::new(&file).parent() {
+                            let _ = std::fs::create_dir_all(parent);
+                        }
+
                            redirect_file = Some(std::fs::File::create(&file).expect("Failed to create file"));
                     }
 
