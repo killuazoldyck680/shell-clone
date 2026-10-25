@@ -106,11 +106,13 @@ fn main() {
             }
 
             "echo" => {
-                if let Some(file) = &mut redirect_file {
-                    
+                match redirect_file {
+                    Ok() => writeln!(file, "{}", args.join(" "));
+
+                    None => println!("{}", args.join(" "));
                 }
 
-                println!("{}", args.join(" "));
+                
             }
 
             "type" => {
