@@ -106,6 +106,10 @@ fn main() {
             }
 
             "echo" => {
+                if let Some(file) = &mut redirect_file {
+                    
+                }
+
                 println!("{}", args.join(" "));
             }
 
