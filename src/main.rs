@@ -107,9 +107,10 @@ fn main() {
 
             "echo" => {
                 match redirect_file {
-                    Ok() => writeln!(file, "{}", args.join(" "));
-
-                    None => println!("{}", args.join(" "));
+                   Some(ref mut file) => {
+                    writeln!(file, "{}", args.join(" ")).expect("Failed to write to file")
+                   }
+                    None =>  {println!("{}", args.join(" ")); }
                 }
 
                 
