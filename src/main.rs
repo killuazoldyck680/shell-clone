@@ -25,6 +25,9 @@ fn main() {
 
         let mut is_escaped = false;
 
+        let mut redirect_file: Option<std::fs::File> = None;
+
+
         let mut chars = input.chars().peekable();
         while let Some(c) = chars.next() {
             if in_single_quote {
@@ -79,11 +82,6 @@ fn main() {
             continue;
         }
 
-        let command = args[0].as_str();
-        let args = &args[1..];
-        let mut redirect_file: Option<std::fs::File> = None;
-
-
         if args.len() >= 2 {
             if args[args.len() - 2] == ">" || args[args.len() - 2] == "1>" {
                 let target_filename = args.pop();
@@ -91,7 +89,7 @@ fn main() {
 
                 match target_filename {
                     Some(file) => {
-                          redirect_file = Some(std::fs::File::create(&file).expect("Failed to create file"));
+                           redirect_file = Some(std::fs::File::create(&file).expect("Failed to create file"));
                     }
 
                     None => {}
@@ -100,6 +98,12 @@ fn main() {
 
            
         }
+
+        let command = args[0].as_str();
+        let args = &args[1..];
+        
+
+        
         match command {
             "exit" => {
                 break;
@@ -241,6 +245,14 @@ fn main() {
                        }
 
                        None => {}
+                   }
+
+                   match cmd.status() {
+                       Ok(_status) => {}
+
+                       Err(_) => {
+                        println!("{}: failed to execute", command)
+                       }
                    }
                 } else {
                     println!("{}: not found", command);
