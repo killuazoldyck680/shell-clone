@@ -234,6 +234,14 @@ fn main() {
                 if let Some(exec_path) = executable_path {
                    let mut cmd = Command::new(&exec_path);
                    cmd.args(args);
+
+                   match redirect_file {
+                       Some(ref file) => {
+                        cmd.stdout(std::process::Stdio::from(file.try_clone().expect("Failed to clone file")));
+                       }
+
+                       None => {}
+                   }
                 } else {
                     println!("{}: not found", command);
                 }
