@@ -232,12 +232,8 @@ fn main() {
                 }
 
                 if let Some(exec_path) = executable_path {
-                    match Command::new(&exec_path).args(args).status() {
-                        Ok(_status) => {}
-                        Err(_) => {
-                            println!("{}: failed to execute", command);
-                        }
-                    }
+                   let mut cmd = Command::new(&exec_path);
+                   cmd.args(args);
                 } else {
                     println!("{}: not found", command);
                 }
