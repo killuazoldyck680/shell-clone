@@ -93,6 +93,8 @@ fn main() {
                     ">" | "1>" => {
                         redirect_file = stderr_redirect_file;
                     }
+
+                    "2" => 
                 }
 
                 match target_filename {
