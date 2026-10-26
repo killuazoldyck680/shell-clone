@@ -252,11 +252,19 @@ fn main() {
                    let mut cmd = Command::new(&exec_path);
                    cmd.args(args);
 
+                   // Handle standard output redirection (> or 1>)
                    match redirect_file {
                        Some(ref file) => {
                         cmd.stdout(std::process::Stdio::from(file.try_clone().expect("Failed to clone file")));
                        }
+                       None => {}
+                   }
 
+                   // Handle standard error redirection (2>)
+                   match stderr_redirect_file {
+                       Some(ref file) => {
+                        cmd.stderr(std::process::Stdio::from(file.try_clone().expect("Failed to clone file")));
+                       }
                        None => {}
                    }
 
