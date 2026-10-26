@@ -27,7 +27,7 @@ fn main() {
 
         let mut redirect_file: Option<std::fs::File> = None;
 
-        let mut stderr_redirect_file = Option<std::fs::File> = None;
+        let mut stderr_redirect_file : Option<std::fs::File> = None;
 
 
         let mut chars = input.chars().peekable();
@@ -88,6 +88,12 @@ fn main() {
             if args[args.len() - 2] == ">" || args[args.len() - 2] == "1>" || args[args.len() - 2] == "2>" {
                 let target_filename = args.pop();
                 let redirection_operator = args.pop();
+
+                match redirection_operator {
+                    ">" | "1>" => {
+                        redirect_file = stderr_redirect_file;
+                    }
+                }
 
                 match target_filename {
                     Some(file) => {
