@@ -85,34 +85,33 @@ fn main() {
         }
 
         if args.len() >= 2 {
-            if args[args.len() - 2] == ">" || args[args.len() - 2] == "1>" || args[args.len() - 2] == "2>" {
-                let target_filename = args.pop();
-                let redirection_operator = args.pop();
+    if args[args.len() - 2] == ">" || args[args.len() - 2] == "1>" || args[args.len() - 2] == "2>" {
+        let target_filename = args.pop();
+        let redirection_operator = args.pop();
 
-                match redirection_operator {
-                    ">" | "1>" => {
-                        redirect_file = stderr_redirect_file;
-                    }
-
-                    "2" => 
+        match target_filename {
+            Some(file) => {
+                // 1. Create parent directories and file once
+                if let Some(parent) = std::path::Path::new(&file).parent() {
+                    let _ = std::fs::create_dir_all(parent);
                 }
+                let file_handle = std::fs::File::create(&file).expect("Failed to create file");
 
-                match target_filename {
-                    Some(file) => {
-                        if let Some(parent) = std::path::Path::new(&file).parent() {
-                            let _ = std::fs::create_dir_all(parent);
-                        }
-
-                           redirect_file = Some(std::fs::File::create(&file).expect("Failed to create file"));
+                // 2. Route the file handle to the correct stream variable
+                match redirection_operator.as_deref() {
+                    Some(">") | Some("1>") => {
+                        redirect_file = Some(file_handle);
                     }
-
-                    None => {}
+                    Some("2>") => {
+                        stderr_redirect_file = Some(file_handle);
+                    }
+                    _ => {}
                 }
             }
-
-           
+            None => {}
         }
-
+    }
+}
         let command = args[0].as_str();
         let args = &args[1..];
         
