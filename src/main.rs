@@ -83,7 +83,7 @@ fn main() {
         }
 
         if args.len() >= 2 {
-            if args[args.len() - 2] == ">" || args[args.len() - 2] == "1>" {
+            if args[args.len() - 2] == ">" || args[args.len() - 2] == "1>" || args[args.len() - 2] == "2>" {
                 let target_filename = args.pop();
                 let redirection_operator = args.pop();
 
