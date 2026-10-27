@@ -104,8 +104,8 @@ fn main() {
 
                     }
                     Some("2>") => {
-                        stderr_redirect_file = Some(std::fs::File::create(&file).expect("Failed to create file");
-)
+                        stderr_redirect_file = Some(std::fs::File::create(&file).expect("Failed to create file"));
+
                     }
 
                     Some(">>") | Some("1>>") => {
