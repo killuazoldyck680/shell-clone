@@ -107,7 +107,7 @@ fn main() {
                     }
 
                     Some(">>") | Some("1>>") => {
-
+                        redirect_file = Some(file_handle);
                     }
                     _ => {}
                 }
