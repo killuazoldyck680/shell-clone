@@ -105,6 +105,10 @@ fn main() {
                     Some("2>") => {
                         stderr_redirect_file = Some(file_handle);
                     }
+
+                    Some(">>") | Some("1>>") => {
+
+                    }
                     _ => {}
                 }
             }
