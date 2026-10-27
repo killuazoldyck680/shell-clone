@@ -100,16 +100,18 @@ fn main() {
                 // 2. Route the file handle to the correct stream variable
                 match redirection_operator.as_deref() {
                     Some(">") | Some("1>") => {
-                        redirect_file = Some(file_handle);
+                        redirect_file = Some(std::fs::File::create(&file).expect("Failed to create file"));
+
                     }
                     Some("2>") => {
-                        stderr_redirect_file = Some(file_handle);
+                        stderr_redirect_file = Some(std::fs::File::create(&file).expect("Failed to create file");
+)
                     }
 
                     Some(">>") | Some("1>>") => {
-                        redirect_file = Some(file_handle);
+                        redirect_file = std::fs::OpenOptions::new().write(true).create(true).append(true).open(&file);
 
-                        std::fs::OpenOptions::new().write(true).create(true).append(true).open(&file);
+                        
                     }
                     _ => {}
                 }
