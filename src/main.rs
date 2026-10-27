@@ -108,6 +108,8 @@ fn main() {
 
                     Some(">>") | Some("1>>") => {
                         redirect_file = Some(file_handle);
+
+                        std::fs::OpenOptions::new().write(true).create(true).append(true).open(&file);
                     }
                     _ => {}
                 }
