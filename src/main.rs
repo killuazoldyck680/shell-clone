@@ -1,6 +1,8 @@
 use std::io::{self, Write};
 use std::process::Command;
 
+use crossterm::event::KeyCode::Char;
+
 fn main() {
     loop {
         print!("$ ");
@@ -12,7 +14,11 @@ fn main() {
         let mut input = String::new();
 
         loop {
-            
+            let event = crossterm::event::read();
+
+            match Event::Key(event) {
+                Char(key) => input.push(key),
+            }
         }
         if input.is_empty() {
             continue;
