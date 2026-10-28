@@ -109,7 +109,7 @@ fn main() {
                     }
 
                     Some(">>") | Some("1>>") => {
-                        redirect_file = std::fs::OpenOptions::new().write(true).create(true).append(true).open(&file);
+                        redirect_file = Some(std::fs::OpenOptions::new().write(true).create(true).append(true).open(&file).expect("Failed to open file for appending"));
 
                         
                     }
