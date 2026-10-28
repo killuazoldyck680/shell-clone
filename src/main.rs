@@ -9,7 +9,11 @@ fn main() {
         let stdin = io::stdin();
         crossterm::terminal::enable_raw_mode();
 
-        let mut input = 
+        let mut input = String::new();
+
+        loop {
+            
+        }
         if input.is_empty() {
             continue;
         }
