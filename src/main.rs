@@ -1,7 +1,7 @@
 use std::io::{self, Write};
 use std::process::Command;
 
-use crossterm::event::KeyCode::Char;
+use crossterm::event::KeyCode::{self, Char};
 
 fn main() {
     loop {
@@ -9,15 +9,17 @@ fn main() {
         io::stdout().flush().unwrap();
 
         let stdin = io::stdin();
-        crossterm::terminal::enable_raw_mode();
+        crossterm::terminal::enable_raw_mode().unwrap();
 
         let mut input = String::new();
 
         loop {
-            let event = crossterm::event::read();
+            crossterm::event::read().unwrap() ;
 
-            match Event::Key(event) {
-                Char(key) => input.push(key),
+            match crossterm::event::Event::Key(key_event) {
+               KeyCode::Char(c) => input.push(c),
+
+               
             }
         }
         if input.is_empty() {
