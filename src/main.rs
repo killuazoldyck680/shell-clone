@@ -14,18 +14,27 @@ fn main() {
         let mut input = String::new();
 
         loop {
-            crossterm::event::read().unwrap() ;
+           let event =  crossterm::event::read().unwrap() ;
 
-            match crossterm::event::Event::Key(key_event) {
-               KeyCode::Char(c) => {input.push(c),}
+           match event {
+            crossterm::event::Event::Key(key_event) => {
+                match key_event.code {
+                    crossterm::event::KeyCode::Char(c) => {input.push(c),
+                    print!();
+                    io::stdout().flush()
+                    }
 
-               KeyCode::Backspace() =>{ input.pop(), }
+               crossterm::event::KeyCode::Backspace() =>{ input.pop(), }
 
-               KeyCode::Tab => {}
+               crossterm::event::KeyCode::Tab => {}
 
-               KeyCode::Enter => {}
+              crossterm::event:: KeyCode::Enter => {}
+
+                }
             }
-        }
+           }
+
+                   }
         if input.is_empty() {
             continue;
         }
