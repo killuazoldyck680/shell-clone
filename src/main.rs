@@ -17,9 +17,13 @@ fn main() {
             crossterm::event::read().unwrap() ;
 
             match crossterm::event::Event::Key(key_event) {
-               KeyCode::Char(c) => input.push(c),
+               KeyCode::Char(c) => {input.push(c),}
 
-               KeyCode::Backspace() => input.pop(),
+               KeyCode::Backspace() =>{ input.pop(), }
+
+               KeyCode::Tab => {}
+
+               KeyCode::Enter => {}
             }
         }
         if input.is_empty() {
