@@ -20,7 +20,7 @@ fn main() {
            match event {
             crossterm::event::Event::Key(key_event) => {
                 match key_event.code {
-                    crossterm::event::KeyCode::Char(c) => {input.push(c),
+                    crossterm::event::KeyCode::Char(c) => {input.push(c);
                     print!("{}", c);
                     io::stdout().flush().unwrap();
                     }
@@ -36,14 +36,15 @@ fn main() {
 
                }
 
-              crossterm::event:: KeyCode::Enter => {}
-               println!();
-               break;
+              crossterm::event:: KeyCode::Enter => {println!();
+               break;}
+               _ => {}
                 }
-                _ => {}
+                
             }
+            _ => {}
            }
-           _ => {}
+           
 
                    }
         if input.is_empty() {
