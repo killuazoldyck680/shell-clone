@@ -1,4 +1,5 @@
 use std::io::{self, Write};
+use std::ops::ControlFlow::Break;
 use std::process::Command;
 
 use crossterm::event::KeyCode::{self, Char};
@@ -20,19 +21,29 @@ fn main() {
             crossterm::event::Event::Key(key_event) => {
                 match key_event.code {
                     crossterm::event::KeyCode::Char(c) => {input.push(c),
-                    print!();
-                    io::stdout().flush()
+                    print!("{}", c);
+                    io::stdout().flush().unwrap();
                     }
 
-               crossterm::event::KeyCode::Backspace() =>{ input.pop(), }
+               crossterm::event::KeyCode::Backspace =>{ 
+                if !input.is_empty() {
+                    input.pop();
+                    io::stdout().flush().unwrap();
+                }
+                 }
 
-               crossterm::event::KeyCode::Tab => {}
+               crossterm::event::KeyCode::Tab => {
+
+               }
 
               crossterm::event:: KeyCode::Enter => {}
-
+               println!();
+               break;
                 }
+                _ => {}
             }
            }
+           _ => {}
 
                    }
         if input.is_empty() {
