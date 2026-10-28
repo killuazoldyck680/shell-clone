@@ -1,1 +1,0 @@
-/usr/bin/cat: nonexistent: No such file or directory
