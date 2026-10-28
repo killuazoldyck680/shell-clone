@@ -112,6 +112,10 @@ fn main() {
 
                         
                     }
+
+                    Some("2>>") => {
+                       stderr_redirect_file = Some(std::fs::OpenOptions::new().write(true).create(true).append(true).open(&file).expect("Failed to open file for appending"))
+                    }
                     _ => {}
                 }
             }
