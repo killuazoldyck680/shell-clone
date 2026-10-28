@@ -95,8 +95,7 @@ fn main() {
                 if let Some(parent) = std::path::Path::new(&file).parent() {
                     let _ = std::fs::create_dir_all(parent);
                 }
-                let file_handle = std::fs::File::create(&file).expect("Failed to create file");
-
+               
                 // 2. Route the file handle to the correct stream variable
                 match redirection_operator.as_deref() {
                     Some(">") | Some("1>") => {
