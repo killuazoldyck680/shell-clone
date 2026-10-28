@@ -7,10 +7,9 @@ fn main() {
         io::stdout().flush().unwrap();
 
         let stdin = io::stdin();
-        let mut input = String::new();
-        stdin.read_line(&mut input).unwrap();
-        let input = input.trim();
+        crossterm::terminal::enable_raw_mode();
 
+        let mut input = 
         if input.is_empty() {
             continue;
         }
