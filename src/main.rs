@@ -34,7 +34,11 @@ fn main() {
 
                crossterm::event::KeyCode::Tab => {
                 if input.as_str().starts_with("echo") {
-                    
+                   let characters =  &"echo"[input.len()..];
+
+                   input.push_str(characters);
+
+                   io::stdout().flush().unwrap()
                 }
                }
 
