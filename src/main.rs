@@ -33,7 +33,9 @@ fn main() {
                  }
 
                crossterm::event::KeyCode::Tab => {
-
+                if input.as_str().starts_with("echo") {
+                    
+                }
                }
 
               crossterm::event:: KeyCode::Enter => {println!();
