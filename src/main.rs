@@ -26,19 +26,21 @@ fn main() {
                     }
 
                crossterm::event::KeyCode::Backspace =>{ 
-                if !input.is_empty() {
+                  if !input.is_empty() {
                     input.pop();
                     io::stdout().flush().unwrap();
                 }
                  }
 
                crossterm::event::KeyCode::Tab => {
-                if "echo".starts_with(&input) ||"exit".starts_with(&input) {
+                let target = if "echo".starts_with(&input) ||"exit".starts_with(&input) {
                    let characters =  &"echo"[input.len()..];
 
                    let c = input.push_str(characters);
 
-                   print!("{}", characters);
+                   let c = input.push_str(" ");
+
+                   print!("{} ", characters);
 
 
 
