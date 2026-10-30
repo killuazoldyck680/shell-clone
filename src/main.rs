@@ -2,7 +2,7 @@ use std::io::{self, Write};
 use std::ops::ControlFlow::Break;
 use std::process::Command;
 
-use crossterm::event::KeyCode::{self, Char};
+use crossterm::event::{Event, KeyCode, KeyEve}; 
 
 fn main() {
     loop {
@@ -10,11 +10,13 @@ fn main() {
         io::stdout().flush().unwrap();
 
         let stdin = io::stdin();
+       
         crossterm::terminal::enable_raw_mode().unwrap();
 
         let mut input = String::new();
 
         loop {
+            
            let event =  crossterm::event::read().unwrap() ;
 
            match event {
@@ -28,26 +30,28 @@ fn main() {
                crossterm::event::KeyCode::Backspace =>{ 
                   if !input.is_empty() {
                     input.pop();
+
+                    print!("\x08 \x08");
                     io::stdout().flush().unwrap();
                 }
                  }
 
                crossterm::event::KeyCode::Tab => {
-               
+               if !input.is_empty() {
                 let target = if "echo".starts_with(&input) {"echo"} else {"exit"} ; 
                    let characters =  &target[input.len()..];
 
-                   let c = input.push_str(characters);
+                    input.push_str(characters);
 
-                   let c = input.push_str(" ");
+                    input.push_str(" ");
 
                    print!("{} ", characters);
 
 
 
                    io::stdout().flush().unwrap()
-                
                }
+            }
 
               crossterm::event:: KeyCode::Enter => {println!();
                break;}
