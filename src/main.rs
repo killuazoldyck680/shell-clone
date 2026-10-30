@@ -2,7 +2,7 @@ use std::io::{self, Write};
 use std::ops::ControlFlow::Break;
 use std::process::Command;
 
-use crossterm::event::{Event, KeyCode, KeyEve}; 
+use crossterm::event::{Event, KeyCode, KeyEvent, KeyEventKind}; 
 
 fn main() {
     loop {
@@ -20,7 +20,11 @@ fn main() {
            let event =  crossterm::event::read().unwrap() ;
 
            match event {
-            crossterm::event::Event::Key(key_event) => {
+            Event::Key(key_event) => {
+            // CRITICAL FIX: Only process key press events on Windows to prevent duplication!
+            if key_event.kind != KeyEventKind::Press {
+                continue;
+            }
                 match key_event.code {
                     crossterm::event::KeyCode::Char(c) => {input.push(c);
                     print!("{}", c);
@@ -57,8 +61,8 @@ fn main() {
                break;}
                _ => {}
                 }
-                
-            }
+            }   
+            
             _ => {}
            }
            
