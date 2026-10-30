@@ -2,7 +2,8 @@ use std::io::{self, Write};
 use std::ops::ControlFlow::Break;
 use std::process::Command;
 
-use crossterm::event::{Event, KeyCode, KeyEvent, KeyEventKind}; 
+use crossterm::event::{Event, KeyCode, KeyEvent, KeyEventKind, KeyModifiers};
+
 
 fn main() {
     loop {
@@ -21,9 +22,15 @@ fn main() {
 
            match event {
             Event::Key(key_event) => {
-            // CRITICAL FIX: Only process key press events on Windows to prevent duplication!
+            //  Only process key press events on Windows to prevent duplication.
             if key_event.kind != KeyEventKind::Press {
                 continue;
+            }
+
+            if key_event.modifiers.contains(KeyModifiers::CONTROL) && key_event.code == KeyCode::Char('c') {
+                println!("^C");
+                crossterm::terminal::disable_raw_mode().unwrap();
+                std::process::exit(0);
             }
                 match key_event.code {
                     crossterm::event::KeyCode::Char(c) => {input.push(c);
