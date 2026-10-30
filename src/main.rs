@@ -33,8 +33,9 @@ fn main() {
                  }
 
                crossterm::event::KeyCode::Tab => {
-                let target = if "echo".starts_with(&input) ||"exit".starts_with(&input) {
-                   let characters =  &"echo"[input.len()..];
+               
+                let target = if "echo".starts_with(&input) {"echo"} else {"exit"} ; 
+                   let characters =  &target[input.len()..];
 
                    let c = input.push_str(characters);
 
@@ -45,7 +46,7 @@ fn main() {
 
 
                    io::stdout().flush().unwrap()
-                }
+                
                }
 
               crossterm::event:: KeyCode::Enter => {println!();
