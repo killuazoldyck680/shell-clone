@@ -65,16 +65,8 @@ fn main() {
             }
 
               crossterm::event:: KeyCode::Enter => {
-                let key = input.split_whitespace();
+                let key = input.splitn(2, ' ').strip_prefix("echo ");
 
-                if key == "echo" {
-                    if let Some((_prefix, after)) = key.split_once("echo ") {
-                        let final = after.to_string();
-                        println!("Extracted: {}", stored_value);
-                    } else {
-                        println!("Not Found")
-                    }
-                }
                 
                 println!();
                break;}
