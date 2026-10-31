@@ -65,7 +65,15 @@ fn main() {
             }
 
               crossterm::event:: KeyCode::Enter => {
-                let key = input.splitn(2, ' ').strip_prefix("echo ");
+                let key = input.split_once(' ' );
+
+                if key == "echo" {
+                    println!("{key}")
+                } else if key == "exit" {
+                    break;
+                }
+
+
 
                 
                 println!();
