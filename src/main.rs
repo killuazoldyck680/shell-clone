@@ -68,7 +68,12 @@ fn main() {
                 let key = input.split_whitespace();
 
                 if key == "echo" {
-                    if let Some((_prefix, after))
+                    if let Some((_prefix, after)) = key.split_once("echo ") {
+                        let final = after.to_string();
+                        println!("Extracted: {}", stored_value);
+                    } else {
+                        println!("Not Found")
+                    }
                 }
                 
                 println!();
