@@ -65,19 +65,26 @@ fn main() {
             }
 
               crossterm::event:: KeyCode::Enter => {
-                let key = input.split_once(' ' );
-
-                if key == "echo" {
-                    println!("{key}")
-                } else if key == "exit" {
-                    break;
-                }
-
-
-
-                
                 println!();
-               break;}
+
+              if let Some((cmd, args)) = input.split_once(' ') {
+        // Handled when there is a space (e.g., "echo hello")
+        if cmd == "echo" {
+            println!("{}", args);
+        }
+    } else {
+        // Handled when there are no spaces (e.g., "exit" or bare "echo")
+        let trimmed = input.trim();
+        if trimmed == "exit" {
+            crossterm::terminal::disable_raw_mode().unwrap();
+            break;
+        } else if trimmed == "echo" {
+            println!();
+        }
+    }
+              input.clear();  
+                
+            }
                _ => {}
                 }
             }   
