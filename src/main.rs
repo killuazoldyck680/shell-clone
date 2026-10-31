@@ -64,7 +64,10 @@ fn main() {
                }
             }
 
-              crossterm::event:: KeyCode::Enter => {println!();
+              crossterm::event:: KeyCode::Enter => {
+                let key = input.split_whitespace();
+                
+                println!();
                break;}
                _ => {}
                 }
