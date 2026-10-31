@@ -66,6 +66,10 @@ fn main() {
 
               crossterm::event:: KeyCode::Enter => {
                 let key = input.split_whitespace();
+
+                if key == "echo" {
+                    if let Some((_prefix, after))
+                }
                 
                 println!();
                break;}
