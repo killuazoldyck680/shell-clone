@@ -49,7 +49,7 @@ fn main() {
 
                crossterm::event::KeyCode::Tab => {
                if !input.is_empty() {
-                let target = if "echo".starts_with(&input) {"echo"} else {"exit"} ; 
+                let target = "echo".starts_with(&input) || "exit".starts_with(&input);
                    let characters =  &target[input.len()..];
 
                     input.push_str(characters);
