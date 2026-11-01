@@ -49,26 +49,27 @@ fn main() {
 
                crossterm::event::KeyCode::Tab => {
                if !input.is_empty() {
-             let target =   if "echo".starts_with(&input) {
-                     let characters =  &target[input.len()..];
+        let target = if "echo".starts_with(&input) {
+            Some("echo")
+        } else if "exit".starts_with(&input) {
+            Some("exit")
+        } else {
+            None
+        };
 
-                    input.push_str(characters);
-
-                    input.push_str(" ");
-
-                   print!("{} ", characters);
-
-
-
-                   io::stdout().flush().unwrap()
-                } else if "exit".starts_with(&input) {
-                    
-                } else {
-                    
-                };
-                
-                  
-               }
+        if let Some(cmd) = target {
+            // Valid completion branch
+            let characters = &cmd[input.len()..];
+            input.push_str(characters);
+            input.push_str(" ");
+            print!("{} ", characters);
+            io::stdout().flush().unwrap();
+        } else {
+            // Invalid completion branch: leave input unchanged and ring the bell
+            print!("\x07");
+            io::stdout().flush().unwrap();
+        }
+    }
             }
 
               crossterm::event:: KeyCode::Enter => {
