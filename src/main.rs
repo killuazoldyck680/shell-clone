@@ -9,7 +9,17 @@ fn find_executables(input: &str) -> Option<String> {
     let path = std::env::var("PATH").ok()?;
 
     for dir in std::env::split_paths(&path) {
+        if let Ok(entries) = std::fs::read_dir(dir) {
+            for entry in entries.flatten() {
+               if let Ok(name) = entry.file_name().into_string() {
+                if name.starts_with(input) {
+                   return Some(name)
+                }
+               } 
+            }
+        }
 
+       
     }
 
     None
