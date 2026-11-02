@@ -5,6 +5,10 @@ use std::process::Command;
 use crossterm::event::{Event, KeyCode, KeyEvent, KeyEventKind, KeyModifiers};
 
 
+fn find_executables(input: &str) -> Option<String> {
+    
+}
+
 fn main() {
     loop {
         print!("$ ");
@@ -65,7 +69,6 @@ fn main() {
             print!("{} ", characters);
             io::stdout().flush().unwrap();
         } else {
-            // Invalid completion branch: leave input unchanged and ring the bell
             print!("\x07");
             io::stdout().flush().unwrap();
         }
