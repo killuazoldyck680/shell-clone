@@ -70,11 +70,11 @@ fn main() {
                crossterm::event::KeyCode::Tab => {
                if !input.is_empty() {
         let target = if "echo".starts_with(&input) {
-            Some("echo")
+            Some("echo".to_string())
         } else if "exit".starts_with(&input) {
-            Some("exit")
+            Some("exit".to_string())
         } else {
-            None
+            find_executables(&input)
         };
 
         if let Some(cmd) = target {
