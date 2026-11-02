@@ -6,7 +6,13 @@ use crossterm::event::{Event, KeyCode, KeyEvent, KeyEventKind, KeyModifiers};
 
 
 fn find_executables(input: &str) -> Option<String> {
-    let path = std::env::var("PATH");
+    let path = std::env::var("PATH").ok()?;
+
+    for dir in std::env::split_paths(&path) {
+
+    }
+
+    None
 }
 
 fn main() {
