@@ -105,7 +105,14 @@ fn main() {
             io::stdout().flush().unwrap();
         }
                } else {
-                   
+                   if last_tab_input.as_ref() == Some(&input) {
+
+                   } else {
+                        print!("\x07");
+            io::stdout().flush().unwrap();
+
+            last_tab_input = Some(input.clone());
+                   }
                }
 
 
