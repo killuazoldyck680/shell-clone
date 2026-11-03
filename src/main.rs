@@ -13,7 +13,7 @@ fn find_executables(input: &str) -> Option<String> {
             for entry in entries.flatten() {
                if let Ok(name) = entry.file_name().into_string() {
                 if name.starts_with(input) {
-                   return Some(name)
+                   let collector: Vec<String> = Vec::new();
                 }
                } 
             }
