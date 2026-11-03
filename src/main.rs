@@ -45,6 +45,9 @@ if "exit".starts_with(input) {
 }
 
 fn main() {
+     let mut last_tab_input: Option<String> = None;
+
+
     loop {
         print!("$ ");
         io::stdout().flush().unwrap();
@@ -87,7 +90,23 @@ fn main() {
                  }
 
                crossterm::event::KeyCode::Tab => {
-                let mut last_tab_input: Option<String> = None;
+                let matches = find_executables(&input);
+
+               if matches.is_empty() {
+                 print!("\x07");
+            io::stdout().flush().unwrap();
+               } else if matches.len() == 1 {
+                    if let Some(cmd) = target {
+            
+            let characters = &cmd[input.len()..];
+            input.push_str(characters);
+            input.push_str(" ");
+            print!("{} ", characters);
+            io::stdout().flush().unwrap();
+        }
+               }
+
+
 
                if !input.is_empty() {
         let target = if "echo".starts_with(&input) {
@@ -98,16 +117,8 @@ fn main() {
             find_executables(&input)
         };
 
-        if let Some(cmd) = target {
-            // Valid completion branch
-            let characters = &cmd[input.len()..];
-            input.push_str(characters);
-            input.push_str(" ");
-            print!("{} ", characters);
-            io::stdout().flush().unwrap();
-        } else {
-            print!("\x07");
-            io::stdout().flush().unwrap();
+        else {
+           
         }
     }
             }
