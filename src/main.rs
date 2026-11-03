@@ -6,32 +6,31 @@ use crossterm::event::{Event, KeyCode, KeyEvent, KeyEventKind, KeyModifiers};
 
 
 fn find_executables(input: &str) -> Vec<String> {
-    let path = std::env::var("PATH").ok()?;
+    let path = std::env::var("PATH").ok().unwrap_or_default();
+
+    let mut matches = Vec::new();
+
+    if "echo".starts_with(input) {
+    matches.push("echo".to_string());
+}
+if "exit".starts_with(input) {
+    matches.push("exit".to_string());
+}
+
 
     for dir in std::env::split_paths(&path) {
         if let Ok(entries) = std::fs::read_dir(dir) {
             for entry in entries.flatten() {
                if let Ok(name) = entry.file_name().into_string() {
                 if name.starts_with(input) {
-                   let mut matches = Vec::new();
+                   matches.push(name);
+                 
 
-                   if "echo".starts_with(&input) || "exit".starts_with(&input) {
-                    matches.push(cmd.to_string());
-                   }
+                    
 
-
-                   for dir in std::env::split_paths(&path) {
-                    std::fs::read_dir(dir);
-
-                    if name.starts_with(input) {
-                         matches.push(dir);
-
-                    matches.sort();
-                    matches.dedup();
-                    }
-
+                  
                    
-                   }
+                   
                 }
                } 
             }
@@ -39,8 +38,10 @@ fn find_executables(input: &str) -> Vec<String> {
 
        
     }
-
-    None
+      matches.sort();
+                    matches.dedup();
+                  
+    matches
 }
 
 fn main() {
