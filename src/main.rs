@@ -15,7 +15,11 @@ fn find_executables(input: &str) -> Vec<String> {
                 if name.starts_with(input) {
                    let mut matches = Vec::new();
 
-                   
+                   if "echo".starts_with(&input) || "exit".starts_with(&input) {
+                    matches.push(cmd.to_string());
+                   }
+
+
                    for dir in std::env::split_paths("PATH") {
                     std::fs::read_dir(dir).starts_with(input);
                    }
