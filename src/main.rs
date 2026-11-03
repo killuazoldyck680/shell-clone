@@ -14,6 +14,10 @@ fn find_executables(input: &str) -> Option<String> {
                if let Ok(name) = entry.file_name().into_string() {
                 if name.starts_with(input) {
                    let collector: Vec<String> = Vec::new();
+
+                   for dir in std::env::split_paths("PATH") {
+                    std::fs::read_dir(dir).starts_with(input);
+                   }
                 }
                } 
             }
