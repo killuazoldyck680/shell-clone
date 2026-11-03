@@ -87,6 +87,8 @@ fn main() {
                  }
 
                crossterm::event::KeyCode::Tab => {
+                let mut last_tab_input: Option<String> = None;
+
                if !input.is_empty() {
         let target = if "echo".starts_with(&input) {
             Some("echo".to_string())
