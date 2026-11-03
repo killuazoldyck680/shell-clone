@@ -96,7 +96,7 @@ fn main() {
                  print!("\x07");
             io::stdout().flush().unwrap();
                } else if matches.len() == 1 {
-                    if let Some(cmd) = target {
+                    if let Some(cmd) = &matches[0] {
             
             let characters = &cmd[input.len()..];
             input.push_str(characters);
@@ -104,23 +104,13 @@ fn main() {
             print!("{} ", characters);
             io::stdout().flush().unwrap();
         }
+               } else {
+                   
                }
 
 
 
-               if !input.is_empty() {
-        let target = if "echo".starts_with(&input) {
-            Some("echo".to_string())
-        } else if "exit".starts_with(&input) {
-            Some("exit".to_string())
-        } else {
-            find_executables(&input)
-        };
-
-        else {
-           
-        }
-    }
+             
             }
 
               crossterm::event:: KeyCode::Enter => {
