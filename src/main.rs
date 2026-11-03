@@ -78,6 +78,8 @@ fn main() {
                     crossterm::event::KeyCode::Char(c) => {input.push(c);
                     print!("{}", c);
                     io::stdout().flush().unwrap();
+
+                    last_tab_input = None;
                     }
 
                crossterm::event::KeyCode::Backspace =>{ 
@@ -86,27 +88,35 @@ fn main() {
 
                     print!("\x08 \x08");
                     io::stdout().flush().unwrap();
+
+                    last_tab_input = None;
                 }
                  }
 
                crossterm::event::KeyCode::Tab => {
                 let matches = find_executables(&input);
 
+                eprintln!("\n[DEBUG] Matches found for '{}': {:?}", input, matches);
+
                if matches.is_empty() {
                  print!("\x07");
             io::stdout().flush().unwrap();
                } else if matches.len() == 1 {
-                    if let Some(cmd) = &matches[0] {
+                    let cmd = &matches[0]; 
             
             let characters = &cmd[input.len()..];
             input.push_str(characters);
             input.push_str(" ");
             print!("{} ", characters);
             io::stdout().flush().unwrap();
-        }
+        
                } else {
                    if last_tab_input.as_ref() == Some(&input) {
-
+                    println!();
+println!("{}", matches.join("  "));
+print!("$ {}", input); 
+io::stdout().flush().unwrap();
+last_tab_input = None;
                    } else {
                         print!("\x07");
             io::stdout().flush().unwrap();
@@ -139,6 +149,8 @@ fn main() {
         }
     }
               input.clear();  
+
+              last_tab_input = None;
                 
             }
                _ => {}
