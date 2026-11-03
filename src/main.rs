@@ -20,13 +20,17 @@ fn find_executables(input: &str) -> Vec<String> {
                    }
 
 
-                   for dir in std::env::split_paths("PATH") {
+                   for dir in std::env::split_paths(&path) {
                     std::fs::read_dir(dir);
 
-                    matches.push(dir);
+                    if name.starts_with(input) {
+                         matches.push(dir);
 
                     matches.sort();
                     matches.dedup();
+                    }
+
+                   
                    }
                 }
                } 
