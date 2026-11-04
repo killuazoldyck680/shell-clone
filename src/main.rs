@@ -131,10 +131,13 @@ fn main() {
                     
                     let extra = &lcp[input.len()..];
 
+                    input.push_str(extra);
 
-                   print!("{}", final);
+                   print!("{}", extra);
 
                    io::stdout().flush().unwrap();
+
+                   last_tab_input = None;
 
 
                    }
