@@ -117,6 +117,8 @@ fn main() {
 
                    for i in character {
                     matches.iter().all(|s| s.chars().nth(i))
+
+                    let mut lcp_len = 0;
                    }
                 }
 
