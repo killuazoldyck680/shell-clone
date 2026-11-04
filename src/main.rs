@@ -112,8 +112,11 @@ fn main() {
         
                } else {
                 if let Some(shortest) = matches.iter().min_by_key(|s| s.len()) {
-                    println!("The shortest string is: {}",shortests)
+                    
+                   let character =  shortest.chars().enumerate();
                 }
+
+                
 
                    if last_tab_input.as_ref() == Some(&input) {
                     println!();
