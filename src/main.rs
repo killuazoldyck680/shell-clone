@@ -116,7 +116,7 @@ fn main() {
                    let character =  shortest.chars().enumerate();
                       let mut lcp_len = 0;
                    for (i,c) in character {
-                   if   matches.iter().all(matches.iter().all(|s| s.chars().nth(i) == Some(c))) {
+                   if  matches.iter().all(|s| s.chars().nth(i) == Some(c)) {
                     lcp_len +=1;
                    } else {
                        break;
@@ -136,10 +136,13 @@ fn main() {
                    print!("{}", extra);
 
                    io::stdout().flush().unwrap();
+                        last_tab_input = None;
+                        return;
+                   
 
-                   last_tab_input = None;
 
-
+                   } else if lcp == input {
+                       
                    }
 
 
