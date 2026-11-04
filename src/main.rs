@@ -114,6 +114,10 @@ fn main() {
                 if let Some(shortest) = matches.iter().min_by_key(|s| s.len()) {
                     
                    let character =  shortest.chars().enumerate();
+
+                   for i in character {
+                    matches.iter().all(|s| s.chars().nth(i))
+                   }
                 }
 
                 
