@@ -111,6 +111,10 @@ fn main() {
             io::stdout().flush().unwrap();
         
                } else {
+                if let Some(shortest) = matches.iter().min_by_key(|s| s.len()) {
+                    println!("The shortest string is: {}",shortests)
+                }
+
                    if last_tab_input.as_ref() == Some(&input) {
                     println!();
 println!("{}", matches.join("  "));
