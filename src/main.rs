@@ -95,9 +95,7 @@ fn main() {
 
                crossterm::event::KeyCode::Tab => {
                 let matches = find_executables(&input);
-
-                eprintln!("\n[DEBUG] Matches found for '{}': {:?}", input, matches);
-
+               
                if matches.is_empty() {
                  print!("\x07");
             io::stdout().flush().unwrap();
@@ -127,7 +125,7 @@ fn main() {
                    }
 
                    let lcp = &shortest[..lcp_len];
-                    if lcp > input {
+                    if lcp > input.as_str() {
                     
                     let extra = &lcp[input.len()..];
 
@@ -144,7 +142,8 @@ fn main() {
                    } else if lcp == input {
                        
                    }
-
+                    eprintln!("\n[DEBUG] input: '{}', lcp: '{}', lcp_len: {}", input, lcp, lcp_len);
+               
 
                   
                 }
