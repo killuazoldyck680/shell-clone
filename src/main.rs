@@ -114,12 +114,28 @@ fn main() {
                 if let Some(shortest) = matches.iter().min_by_key(|s| s.len()) {
                     
                    let character =  shortest.chars().enumerate();
-
-                   for i in character {
-                    matches.iter().all(|s| s.chars().nth(i))
-
-                    let mut lcp_len = 0;
+                      let mut lcp_len = 0;
+                   for (i,c) in character {
+                   if  = matches.iter().all(matches.iter().all(|s| s.chars().nth(i) == Some(c))) {
+                    lcp_len +=1;
+                   } else {
+                       break;
                    }
+
+                   if lcp > input {
+                   let final =  input.push(&lcp[input.len()..]);
+
+                   print!("{}", final)
+
+                   io::stdout().flush().unwrap();
+
+
+                   }
+
+                   
+                   }
+
+                  
                 }
 
                 
