@@ -116,24 +116,29 @@ fn main() {
                    let character =  shortest.chars().enumerate();
                       let mut lcp_len = 0;
                    for (i,c) in character {
-                   if  = matches.iter().all(matches.iter().all(|s| s.chars().nth(i) == Some(c))) {
+                   if   matches.iter().all(matches.iter().all(|s| s.chars().nth(i) == Some(c))) {
                     lcp_len +=1;
                    } else {
                        break;
                    }
 
-                   if lcp > input {
-                   let final =  input.push(&lcp[input.len()..]);
+                  
+                   
+                   }
 
-                   print!("{}", final)
+                   let lcp = &shortest[..lcp_len];
+                    if lcp > input {
+                    
+                    let extra = &lcp[input.len()..];
+
+
+                   print!("{}", final);
 
                    io::stdout().flush().unwrap();
 
 
                    }
 
-                   
-                   }
 
                   
                 }
