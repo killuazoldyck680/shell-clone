@@ -44,6 +44,10 @@ if "exit".starts_with(input) {
     matches
 }
 
+fn find_completions(input: &str) -> Vec<String> {
+    
+}
+
 fn main() {
      let mut last_tab_input: Option<String> = None;
 
