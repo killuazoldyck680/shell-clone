@@ -126,12 +126,16 @@ fn main() {
                } else if matches.len() == 1 {
                     let cmd = &matches[0]; 
             
-            let characters = &cmd[input.len()..];
-            input.push_str(characters);
-            input.push_str(" ");
-            print!("{} ", characters);
-            io::stdout().flush().unwrap();
-        
+                if let Some(space_idx) = input.rfind(' ') {
+                    input.truncate(space_idx + 1);
+
+                    input.push_str(cmd);
+                    input.push(' ');
+
+                    print!("\r\x1b[K$ {}", input);
+                } else {
+                    
+                }
                } else {
                 if let Some(shortest) = matches.iter().min_by_key(|s| s.len()) {
                     
