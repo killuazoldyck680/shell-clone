@@ -118,7 +118,7 @@ fn main() {
                  }
 
                crossterm::event::KeyCode::Tab => {
-                let matches = find_executables(&input);
+                let matches = find_completions(&input);
                
                if matches.is_empty() {
                  print!("\x07");
