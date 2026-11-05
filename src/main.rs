@@ -48,14 +48,22 @@ fn find_completions(input: &str) -> Vec<String> {
     match input.rfind(' ') {
         Some(space_index) => {
             let prefix = &input[space_index + 1..];
+
+            std::fs::read_dir(".")
+        .into_iter()
+        .flatten()
+        .filter_map(|entry| entry.ok())
+        .filter_map(|entry| entry.file_name().to_str().map(|s| s.to_string()))
+        .filter(|name| name.starts_with(prefix))
+        .collect::<Vec<String>>()
         }
 
         None => {
           return   find_executables(input)
         }
 
-        let read_file = std::fs::read_dir(".").into_iter().flatten().file_name().to_str().filter(|name| name.starts_with(prefix)).map(|name| name.to_string()).collect::<Vec<String>>;
-    };
+       
+    }
 
   
 }
