@@ -134,8 +134,15 @@ fn main() {
 
                     print!("\r\x1b[K$ {}", input);
                 } else {
-                    
+                    let characters = &cmd[input.len()..];
+        input.push_str(characters);
+        input.push_str(" ");
+        print!("{} ", characters);
                 }
+
+                io::stdout().flush().unwrap();
+    last_tab_input = None;
+    return;
                } else {
                 if let Some(shortest) = matches.iter().min_by_key(|s| s.len()) {
                     
