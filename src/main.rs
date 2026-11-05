@@ -45,16 +45,16 @@ if "exit".starts_with(input) {
 }
 
 fn find_completions(input: &str) -> Vec<String> {
-    if let Some(space_index) = input.rfind(' ') {
+    match input.rfind(' ') {
         Some(index) => {
             let prefix = &input[space_index + 1..];
         }
 
         None => {
-            find_executables(input);
+          return   find_executables(input)
         };
 
-        let read_file = std::fs::read_dir(".").ok()?;
+        let read_file = std::fs::read_dir(".").ok()?.file_name().to_str().starts_with(prefix).collect::<Vec<String>>();
     };
 
   
