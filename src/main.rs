@@ -45,7 +45,7 @@ if "exit".starts_with(input) {
 }
 
 fn find_completions(input: &str) -> Vec<String> {
-    
+   let space_idx = input.rfind(' ');
 }
 
 fn main() {
