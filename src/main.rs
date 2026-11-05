@@ -45,13 +45,19 @@ if "exit".starts_with(input) {
 }
 
 fn find_completions(input: &str) -> Vec<String> {
-   let space_idx = input.rfind(' ');
+    if let Some(space_index) = input.rfind(' ') {
+        Some(index) => {
+            let prefix = &input[space_index + 1..];
+        }
 
-   if space_idx {
-    &input[..space_idx + 1];
+        None => {
+            find_executables(input);
+        };
 
-    &input[space_idx + 1];
-   }
+        let read_file = std::fs::read_dir(".").ok()?;
+    };
+
+  
 }
 
 fn main() {
