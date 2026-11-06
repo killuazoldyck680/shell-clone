@@ -65,6 +65,10 @@ fn find_completions(input: &str) -> Vec<String> {
        
     }
 
+    match input.rfind('/') {
+        
+    }
+
   
 }
 
