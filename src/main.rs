@@ -60,6 +60,16 @@ fn find_completions(input: &str) -> Vec<String> {
         match arg.rfind('/') {
             Some(slash_index) => {
                 let dir_path = &arg[..slash_idx + 1];
+
+                let prefix = &arg[slash_idx + 1..];
+
+                std::fs::read_dir(dir_path);
+
+                format!("{}{}", dir_path, filename)
+            }
+
+            None => {
+                
             }
         }
 
