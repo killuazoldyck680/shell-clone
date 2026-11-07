@@ -65,13 +65,7 @@ fn find_completions(input: &str) -> Vec<String> {
        
     }
 
-    match input.rfind(' ') {
-        Some(slash_index) => {
-             let prefix = &input[space_index + 1..];
-
-        }
-    }
-
+    
   
 }
 
