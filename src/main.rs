@@ -46,21 +46,41 @@ if "exit".starts_with(input) {
 
 fn find_completions(input: &str) -> Vec<String> {
     match input.rfind(' ') {
-      Some(space_index) => {
-        let arg = &input[&space_index + 1..];
+        Some(space_index) => {
+            let arg = &input[space_index + 1..];
 
-        let (dir_path, prefix) = match arg.rfind('/') {
-            Some(slash_index) => {
-               let dp = &arg[..=slash_index];
+            let (dir_path, prefix) = match arg.rfind('/') {
+                Some(slash_index) => {
+                    let dp = &arg[..=slash_index];
                     let pfx = &arg[slash_index + 1..];
-                    (dp, pfx) 
-            }
-            None => (".", arg),
-        };
-      }
+                    (dp, pfx)
+                }
+                None => (".", arg),
+            };
 
-    
-  
+            std::fs::read_dir(dir_path)
+                .into_iter()
+                .flatten()
+                .filter_map(|entry| entry.ok())
+                .filter_map(|entry| {
+                    let name = entry.file_name().to_str()?.to_string();
+                    if name.starts_with(prefix) {
+                        if dir_path == "." {
+                            Some(name)
+                        } else {
+                            Some(format!("{}{}", dir_path, name))
+                        }
+                    } else {
+                        None
+                    }
+                })
+                .collect::<Vec<String>>()
+        }
+
+        None => {
+            return find_executables(input);
+        }
+    }
 }
 
 fn main() {
