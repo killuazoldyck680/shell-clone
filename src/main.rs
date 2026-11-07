@@ -56,6 +56,11 @@ fn find_completions(input: &str) -> Vec<String> {
         .filter_map(|entry| entry.file_name().to_str().map(|s| s.to_string()))
         .filter(|name| name.starts_with(prefix))
         .collect::<Vec<String>>()
+
+        match arg.rfind('/') {
+            
+        }
+
         }
 
         None => {
