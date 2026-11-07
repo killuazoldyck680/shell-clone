@@ -58,7 +58,9 @@ fn find_completions(input: &str) -> Vec<String> {
         .collect::<Vec<String>>()
 
         match arg.rfind('/') {
-            
+            Some(slash_index) => {
+                let dir_path = &arg[..slash_idx + 1];
+            }
         }
 
         }
