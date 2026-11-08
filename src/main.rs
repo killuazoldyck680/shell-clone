@@ -162,6 +162,10 @@ fn main() {
                     input.truncate(space_idx + 1);
 
                     input.push_str(cmd);
+                    if !cmd.ends_with('/') {
+                        input.push(' ' );
+                    }
+
                     input.push(' ');
 
                     print!("\r\x1b[K$ {}", input);
