@@ -67,13 +67,11 @@ fn find_completions(input: &str) -> Vec<String> {
                     if name.starts_with(prefix) {
                        let full_path =  if dir_path == "." {
                             name.clone()
-                        } else if std::fs::metadata(&full_path).map(|m| m.is_dir()).unwrap_or(false) {
-                            
-                        }
-                        
-                         else {
+                        } else {
                             format!("{}{}", dir_path, name)
-                        }
+                        };
+
+                        let is_directory = std::fs::metadata(&full_path).map(|m| m.is_dir()).unwrap_or(false);
                     } else {
                         None
                     }
