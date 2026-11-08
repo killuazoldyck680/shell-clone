@@ -166,19 +166,24 @@ fn main() {
                         input.push(' ' );
                     }
 
-                    input.push(' ');
+                    
 
                     print!("\r\x1b[K$ {}", input);
                 } else {
                     let characters = &cmd[input.len()..];
         input.push_str(characters);
-        input.push_str(" ");
-        print!("{} ", characters);
+                    if !cmd.ends_with('/') {
+    input.push(' ');
+    print!("{} ", characters);
+} else {
+    print!("{}", characters);
+}
+
                 }
 
                 io::stdout().flush().unwrap();
     last_tab_input = None;
-    return;
+    
                } else {
                 if let Some(shortest) = matches.iter().min_by_key(|s| s.len()) {
                     
@@ -206,7 +211,7 @@ fn main() {
 
                    io::stdout().flush().unwrap();
                         last_tab_input = None;
-                        return;
+                        
                    
 
 
