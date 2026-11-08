@@ -1,3 +1,4 @@
+use std::fmt::format;
 use std::io::{self, Write};
 use std::ops::ControlFlow::Break;
 use std::process::Command;
@@ -72,6 +73,20 @@ fn find_completions(input: &str) -> Vec<String> {
                         };
 
                         let is_directory = std::fs::metadata(&full_path).map(|m| m.is_dir()).unwrap_or(false);
+
+                        if is_directory {
+                            if dir_path == "." {
+                                Some(format!("{}/", name))
+                            } else {
+                                Some(format!("{}{}/", dir_path, name))
+                            }
+                        } else {
+                            if dir_path == "." {
+                                Some(name)
+                            } else {
+                                Some(full_path)
+                            }
+                        }
                     } else {
                         None
                     }
