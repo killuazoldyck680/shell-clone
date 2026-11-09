@@ -155,6 +155,9 @@ fn main() {
                if matches.is_empty() {
                  print!("\x07");
             io::stdout().flush().unwrap();
+
+                last_tab_input = None;
+
                } else if matches.len() == 1 {
                     let cmd = &matches[0]; 
             
