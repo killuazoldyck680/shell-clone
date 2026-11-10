@@ -142,7 +142,7 @@ fn main() {
                         }
 
                         crossterm::event::KeyCode::Tab => {
-                            let matches = find_completions(&input);
+                            let mut matches = find_completions(&input);
 
                             if matches.is_empty() {
                                 print!("\x07");
