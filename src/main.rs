@@ -144,6 +144,8 @@ fn main() {
                         crossterm::event::KeyCode::Tab => {
                             let mut matches = find_completions(&input);
 
+                            matches.sort();
+
                             if matches.is_empty() {
                                 print!("\x07");
                                 io::stdout().flush().unwrap();
