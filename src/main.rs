@@ -142,87 +142,87 @@ fn main() {
                         }
 
                         crossterm::event::KeyCode::Tab => {
-                            let mut matches = find_completions(&input);
+    let mut matches = find_completions(&input);
 
-                            matches.sort();
+    matches.sort();
 
-                            if matches.is_empty() {
-                                print!("\x07");
-                                io::stdout().flush().unwrap();
+    if matches.is_empty() {
+        print!("\x07");
+        io::stdout().flush().unwrap();
 
-                                last_tab_input = None;
-                            } else if matches.len() == 1 {
-                                let cmd = &matches[0];
+        last_tab_input = None;
+    } else if matches.len() == 1 {
+        let cmd = &matches[0];
 
-                                if let Some(space_idx) = input.rfind(' ') {
-                                    input.truncate(space_idx + 1);
+        if let Some(space_idx) = input.rfind(' ') {
+            input.truncate(space_idx + 1);
 
-                                    input.push_str(cmd);
-                                    if !cmd.ends_with('/') {
-                                        input.push(' ');
-                                    }
+            input.push_str(cmd);
+            if !cmd.ends_with('/') {
+                input.push(' ');
+            }
 
-                                    print!("\r\x1b[K$ {}", input);
-                                } else {
-                                    let characters = &cmd[input.len()..];
-                                    input.push_str(characters);
-                                    if !cmd.ends_with('/') {
-                                        input.push(' ');
-                                        print!("{} ", characters);
-                                    } else {
-                                        print!("{}", characters);
-                                    }
-                                }
+            print!("\r\x1b[K$ {}", input);
+        } else {
+            let characters = &cmd[input.len()..];
+            input.push_str(characters);
+            if !cmd.ends_with('/') {
+                input.push(' ');
+                print!("{} ", characters);
+            } else {
+                print!("{}", characters);
+            }
+        }
 
-                                io::stdout().flush().unwrap();
-                                last_tab_input = None;
-                            } else {
-                                if let Some(shortest) = matches.iter().min_by_key(|s| s.len()) {
-                                    let character = shortest.chars().enumerate();
-                                    let mut lcp_len = 0;
-                                    for (i, c) in character {
-                                        if matches.iter().all(|s| s.chars().nth(i) == Some(c)) {
-                                            lcp_len += 1;
-                                        } else {
-                                            break;
-                                        }
-                                    }
+        io::stdout().flush().unwrap();
+        last_tab_input = None;
+    } else {
+        if let Some(shortest) = matches.iter().min_by_key(|s| s.len()) {
+            let character = shortest.chars().enumerate();
+            let mut lcp_len = 0;
+            for (i, c) in character {
+                if matches.iter().all(|s| s.chars().nth(i) == Some(c)) {
+                    lcp_len += 1;
+                } else {
+                    break;
+                }
+            }
 
-                                    let lcp = &shortest[..lcp_len];
-                                    if lcp > input.as_str() {
-                                        let extra = &lcp[input.len()..];
+            let lcp = &shortest[..lcp_len];
+            
+            // Mutually exclusive: either we extend the LCP or we fall back to double-tab behavior
+            if lcp > input.as_str() {
+                let extra = &lcp[input.len()..];
 
-                                        input.push_str(extra);
+                input.push_str(extra);
 
-                                        print!("{}", extra);
+                print!("{}", extra);
 
-                                        io::stdout().flush().unwrap();
-                                        last_tab_input = None;
+                io::stdout().flush().unwrap();
+                last_tab_input = None;
+            } else {
+                // Fallback: double-tab tracking and listing
+                if last_tab_input.as_ref() == Some(&input) {
+                    println!();
+                    println!("{}", matches.join("  "));
+                    print!("$ {}", input);
+                    io::stdout().flush().unwrap();
+                    last_tab_input = None;
+                } else {
+                    print!("\x07");
+                    io::stdout().flush().unwrap();
 
-                                        break;
-                                    } else if lcp == input {
-                                    }
-                                    eprintln!(
-                                        "\n[DEBUG] input: '{}', lcp: '{}', lcp_len: {}",
-                                        input, lcp, lcp_len
-                                    );
-                                }
+                    last_tab_input = Some(input.clone());
+                }
+            }
 
-                                if last_tab_input.as_ref() == Some(&input) {
-                                    println!();
-                                    println!("{}", matches.join("  "));
-                                    print!("$ {}", input);
-                                    io::stdout().flush().unwrap();
-                                    last_tab_input = None;
-                                } else {
-                                    print!("\x07");
-                                    io::stdout().flush().unwrap();
-
-                                    last_tab_input = Some(input.clone());
-                                }
-                            }
-                        }
-
+            eprintln!(
+                "\n[DEBUG] input: '{}', lcp: '{}', lcp_len: {}",
+                input, lcp, lcp_len
+            );
+        }
+    }
+}
                         crossterm::event::KeyCode::Enter => {
                             println!();
 
