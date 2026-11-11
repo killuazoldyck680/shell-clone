@@ -190,21 +190,21 @@ fn main() {
 
             let lcp = &shortest[..lcp_len];
 
-            // Extract the active token being completed (either after last space, or last slash)
+            // Extract as owned Strings to release the borrow on input immediately
             let current_token = if let Some(space_idx) = input.rfind(' ') {
-                &input[space_idx + 1..]
+                input[space_idx + 1..].to_string()
             } else {
-                &input
+                input.clone()
             };
 
             let token_basename = if let Some(slash_idx) = current_token.rfind('/') {
-                &current_token[slash_idx + 1..]
+                current_token[slash_idx + 1..].to_string()
             } else {
                 current_token
             };
 
             // Mutually exclusive: either we extend the LCP or we fall back to double-tab behavior
-            if lcp > token_basename {
+            if lcp > token_basename.as_str() {
                 let extra = &lcp[token_basename.len()..];
 
                 input.push_str(extra);
