@@ -198,6 +198,8 @@ fn main() {
 
                                         io::stdout().flush().unwrap();
                                         last_tab_input = None;
+
+                                        break;
                                     } else if lcp == input {
                                     }
                                     eprintln!(
