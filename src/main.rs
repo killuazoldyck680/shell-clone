@@ -190,7 +190,6 @@ fn main() {
 
             let lcp = &shortest[..lcp_len];
 
-            // Extract as owned Strings to release the borrow on input immediately
             let current_token = if let Some(space_idx) = input.rfind(' ') {
                 input[space_idx + 1..].to_string()
             } else {
@@ -209,7 +208,8 @@ fn main() {
 
                 input.push_str(extra);
 
-                print!("\r\x1b[K$ {}", extra);
+                // Cleanly redraw the prompt line so the terminal stays fully synchronized
+                print!("\r\x1b[K$ {}", input);
 
                 io::stdout().flush().unwrap();
                 last_tab_input = None;
@@ -228,11 +228,6 @@ fn main() {
                     last_tab_input = Some(input.clone());
                 }
             }
-
-            eprintln!(
-                "\n[DEBUG] input: '{}', lcp: '{}', token_basename: '{}', lcp_len: {}",
-                input, lcp, token_basename, lcp_len
-            );
         }
     }
 }
