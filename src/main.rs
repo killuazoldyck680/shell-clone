@@ -141,7 +141,7 @@ fn main() {
                             }
                         }
 
-                        crossterm::event::KeyCode::Tab => {
+ crossterm::event::KeyCode::Tab => {
     let mut matches = find_completions(&input);
 
     matches.sort();
@@ -189,10 +189,23 @@ fn main() {
             }
 
             let lcp = &shortest[..lcp_len];
-            
+
+            // Extract the active token being completed (either after last space, or last slash)
+            let current_token = if let Some(space_idx) = input.rfind(' ') {
+                &input[space_idx + 1..]
+            } else {
+                &input
+            };
+
+            let token_basename = if let Some(slash_idx) = current_token.rfind('/') {
+                &current_token[slash_idx + 1..]
+            } else {
+                current_token
+            };
+
             // Mutually exclusive: either we extend the LCP or we fall back to double-tab behavior
-            if lcp > input.as_str() {
-                let extra = &lcp[input.len()..];
+            if lcp > token_basename {
+                let extra = &lcp[token_basename.len()..];
 
                 input.push_str(extra);
 
@@ -217,8 +230,8 @@ fn main() {
             }
 
             eprintln!(
-                "\n[DEBUG] input: '{}', lcp: '{}', lcp_len: {}",
-                input, lcp, lcp_len
+                "\n[DEBUG] input: '{}', lcp: '{}', token_basename: '{}', lcp_len: {}",
+                input, lcp, token_basename, lcp_len
             );
         }
     }
