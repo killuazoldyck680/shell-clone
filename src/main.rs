@@ -209,7 +209,7 @@ fn main() {
 
                 input.push_str(extra);
 
-                print!("{}", extra);
+                print!("\r\x1b[K$ {}", extra);
 
                 io::stdout().flush().unwrap();
                 last_tab_input = None;
