@@ -142,6 +142,10 @@ fn main() {
                         }
 
  crossterm::event::KeyCode::Tab => {
+
+    if input.rfind(' ') {
+        
+    }    
     let mut matches = find_completions(&input);
 
     matches.sort();
