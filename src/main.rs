@@ -144,7 +144,7 @@ fn main() {
  crossterm::event::KeyCode::Tab => {
 
     if input.rfind(' ') {
-        
+        let sub_string = &input[space_idx + 1..];
     }    
     let mut matches = find_completions(&input);
 
