@@ -34,63 +34,52 @@ fn find_executables(input: &str) -> Vec<String> {
     matches
 }
 
-fn find_completions(input: &str) -> Vec<String> {
-    match input.rfind(' ') {
-        Some(space_index) => {
-            let arg = &input[space_index + 1..];
+fn find_completions(arg: &str) -> Vec<String> {
+    let (dir_path, prefix) = match arg.rfind('/') {
+        Some(slash_index) => {
+            let dp = &arg[..=slash_index];
+            let pfx = &arg[slash_index + 1..];
+            (dp, pfx)
+        }
+        None => (".", arg),
+    };
 
-            let (dir_path, prefix) = match arg.rfind('/') {
-                Some(slash_index) => {
-                    let dp = &arg[..=slash_index];
-                    let pfx = &arg[slash_index + 1..];
-                    (dp, pfx)
-                }
-                None => (".", arg),
-            };
+    std::fs::read_dir(dir_path)
+        .into_iter()
+        .flatten()
+        .filter_map(|entry| entry.ok())
+        .filter_map(|entry| {
+            let name = entry.file_name().to_str()?.to_string();
+            if name.starts_with(prefix) {
+                let full_path = if dir_path == "." {
+                    name.clone()
+                } else {
+                    format!("{}{}", dir_path, name)
+                };
 
-            std::fs::read_dir(dir_path)
-                .into_iter()
-                .flatten()
-                .filter_map(|entry| entry.ok())
-                .filter_map(|entry| {
-                    let name = entry.file_name().to_str()?.to_string();
-                    if name.starts_with(prefix) {
-                        let full_path = if dir_path == "." {
-                            name.clone()
-                        } else {
-                            format!("{}{}", dir_path, name)
-                        };
+                let is_directory = std::fs::metadata(&full_path)
+                    .map(|m| m.is_dir())
+                    .unwrap_or(false);
 
-                        let is_directory = std::fs::metadata(&full_path)
-                            .map(|m| m.is_dir())
-                            .unwrap_or(false);
-
-                        if is_directory {
-                            if dir_path == "." {
-                                Some(format!("{}/", name))
-                            } else {
-                                Some(format!("{}{}/", dir_path, name))
-                            }
-                        } else {
-                            if dir_path == "." {
-                                Some(name)
-                            } else {
-                                Some(full_path)
-                            }
-                        }
+                if is_directory {
+                    if dir_path == "." {
+                        Some(format!("{}/", name))
                     } else {
-                        None
+                        Some(format!("{}{}/", dir_path, name))
                     }
-                })
-                .collect::<Vec<String>>()
-        }
-
-        None => {
-            return find_executables(input);
-        }
-    }
+                } else {
+                    if dir_path == "." {
+                        Some(name)
+                    } else {
+                        Some(full_path)
+                    }
+                }
+            } else {
+                None
+            }
+        })
+        .collect::<Vec<String>>()
 }
-
 fn main() {
     let mut last_tab_input: Option<String> = None;
 
@@ -142,21 +131,19 @@ fn main() {
                         }
 
  crossterm::event::KeyCode::Tab => {
-
-
-    let space_idx = input.rfind(' ');
+    let trimmed_input = input.trim_end();
+    let space_idx = trimmed_input.rfind(' ');
     
     let mut matches = match space_idx {
         Some(idx) => {
-            find_completions(&input[idx + 1..])
+            find_completions(&trimmed_input[idx + 1..])
         }
 
         None => {
-            find_completions(&input)
+            find_completions(trimmed_input)
         }
     };
 
-    
     matches.sort();
 
     if matches.is_empty() {
@@ -203,10 +190,10 @@ fn main() {
 
             let lcp = &shortest[..lcp_len];
 
-            let current_token = if let Some(space_idx) = input.rfind(' ') {
-                input[space_idx + 1..].to_string()
+            let current_token = if let Some(space_idx) = trimmed_input.rfind(' ') {
+                trimmed_input[space_idx + 1..].to_string()
             } else {
-                input.clone()
+                trimmed_input.to_string()
             };
 
             let token_basename = if let Some(slash_idx) = current_token.rfind('/') {
@@ -230,7 +217,7 @@ fn main() {
                 // Fallback: double-tab tracking and listing
                 if last_tab_input.as_ref() == Some(&input) {
                     println!();
-                   println!("{}", matches.join("  "));
+                    println!("{}", matches.join("  "));
                     print!("$ {}", input);
                     io::stdout().flush().unwrap();
                     last_tab_input = None;
@@ -485,6 +472,8 @@ fn main() {
                     } else {
                         target.to_string()
                     };
+
+                    println!("[DEBUG cd] Attempting to change directory to: '{}'", resolved_target);
                     let cur_dir = std::env::set_current_dir(&resolved_target);
 
                     match cur_dir {
