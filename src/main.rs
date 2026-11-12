@@ -144,17 +144,11 @@ fn main() {
  crossterm::event::KeyCode::Tab => {
 
     let mut matches = find_completions(&input);
+
+    let space_idx = input.rfind(' ');
  
 
-    if input.rfind(' ') {
-        let sub_string = &input[space_idx + 1..];
-
-        let  matches = find_completions(sub_string);
-    } else {
-        let  matches = find_completions(&input);
- 
-    }  
-   
+    if let Some(space)
     matches.sort();
 
     if matches.is_empty() {
