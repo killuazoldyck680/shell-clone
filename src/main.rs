@@ -146,9 +146,18 @@ fn main() {
     let mut matches = find_completions(&input);
 
     let space_idx = input.rfind(' ');
- 
+    
+    let mut matches = match space_idx {
+        Some(idx) => {
+            find_completions(&input[idx + 1..])
+        }
 
-    if let Some(space)
+        None => {
+            find_completions(&input)
+        }
+    }
+
+    
     matches.sort();
 
     if matches.is_empty() {
