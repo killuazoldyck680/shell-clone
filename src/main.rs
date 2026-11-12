@@ -140,7 +140,7 @@ fn main() {
         }
 
         None => {
-            find_completions(trimmed_input)
+            find_executables(trimmed_input)
         }
     };
 
