@@ -143,7 +143,6 @@ fn main() {
 
  crossterm::event::KeyCode::Tab => {
 
-    let mut matches = find_completions(&input);
 
     let space_idx = input.rfind(' ');
     
@@ -155,7 +154,7 @@ fn main() {
         None => {
             find_completions(&input)
         }
-    }
+    };
 
     
     matches.sort();
@@ -231,7 +230,7 @@ fn main() {
                 // Fallback: double-tab tracking and listing
                 if last_tab_input.as_ref() == Some(&input) {
                     println!();
-                    println!("{}", matches.join("  "));
+                   println!("{}", matches.join("  "));
                     print!("$ {}", input);
                     io::stdout().flush().unwrap();
                     last_tab_input = None;
