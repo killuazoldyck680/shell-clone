@@ -487,7 +487,9 @@ fn main() {
             }
 
             "complete" => {
-            
+                if !args.is_empty() {
+                    
+                }
             }
 
             // This is the separate fallback arm for external programs
