@@ -489,7 +489,11 @@ fn main() {
             "complete" => {
                 if !args.is_empty() {
                     let first = args
-                    .get(0);
+                    .get(0).unwrap();
+                    
+                    if first.as_str() == "-p" {
+                        let second = args.get(1).unwrap();
+                    }
                 }
             }
 
