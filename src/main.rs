@@ -488,7 +488,8 @@ fn main() {
 
             "complete" => {
                 if !args.is_empty() {
-                    
+                    let first = args
+                    .get(0);
                 }
             }
 
