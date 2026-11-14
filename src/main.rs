@@ -134,16 +134,24 @@ fn main() {
                         }
 
  crossterm::event::KeyCode::Tab => {
-    let command_name = input.split_whitespace().next().unwrap();
-
-    if let Some(script_path) = collector.get(command_name) {
+    if let Some(command_name) = input.split_whitespace().next() {
+         if let Some(script_path) = collector.get(command_name) {
         let output = std::process::Command::new(&script_path).output().expect("Error");
+
+        String::from_utf8_lossy(&output.stdout).lines().next();
+
+        print!("\r\x1b[K$ {}", input);
+
+        io::stdout().flush().unwrap()
+
+
 
     }
 
+    }
+   
     
-    String::from_utf8_lossy(&output.stdout).lines().next();
-
+    
 
 
     let trimmed_input = input.trim_end();
