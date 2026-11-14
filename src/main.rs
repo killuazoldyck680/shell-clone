@@ -481,7 +481,15 @@ fn main() {
                     if first.as_str() == "-p" {
                         let second = args.get(1).unwrap();
 
-                        println!("complete: {second}: no completion specification");
+                       match collector.get(second) {
+                        Some(&script_path) => {
+                            println!(complete -C "{script_path}" {second})
+                        }
+
+                        None => {
+                            println!("complete: {second}: no completion specification");
+                        }
+                       }
                     } else if first.as_str() == "-C" {
                         let script_path = args.get(1).unwrap();
 
