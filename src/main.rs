@@ -482,6 +482,8 @@ fn main() {
                         let second = args.get(1).unwrap();
 
                         println!("complete: {second}: no completion specification");
+                    } else if first.as_str() == "-C" {
+                        
                     }
                 }
             }
