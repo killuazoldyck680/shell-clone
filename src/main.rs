@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::fmt::format;
 use std::io::{self, Write};
 use std::ops::ControlFlow::Break;
@@ -82,6 +83,8 @@ fn find_completions(arg: &str) -> Vec<String> {
 }
 fn main() {
     let mut last_tab_input: Option<String> = None;
+
+    let mut collector = HashMap::new();
 
     loop {
         print!("$ ");
