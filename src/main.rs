@@ -136,6 +136,10 @@ fn main() {
  crossterm::event::KeyCode::Tab => {
     let command_name = input.split_whitespace().next();
 
+    let script_path = collector.get(&command_name);
+
+    std::process::Command::new(&script_path).output();
+
 
 
     let trimmed_input = input.trim_end();
