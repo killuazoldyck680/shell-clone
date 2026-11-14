@@ -482,8 +482,8 @@ fn main() {
                         let second = args.get(1).unwrap();
 
                        match collector.get(second) {
-                        Some(&script_path) => {
-                            println!(complete -C "{script_path}" {second})
+                        Some(script_path) => {
+                            println!("complete -C '{script_path}' {second}");
                         }
 
                         None => {
@@ -491,9 +491,9 @@ fn main() {
                         }
                        }
                     } else if first.as_str() == "-C" {
-                        let script_path = args.get(1).unwrap();
+                        let script_path = args.get(1).unwrap().to_string();
 
-                        let target = args.get(2).unwrap();
+                        let target = args.get(2).unwrap().to_string();
 
                         collector.insert(target, script_path);
                     } else {
