@@ -484,6 +484,8 @@ fn main() {
                         println!("complete: {second}: no completion specification");
                     } else if first.as_str() == "-C" {
                         let script_path = args.get(1).unwrap();
+
+                        let target = args.get(2).unwrap();
                     }
                 }
             }
