@@ -486,6 +486,8 @@ fn main() {
                         let script_path = args.get(1).unwrap();
 
                         let target = args.get(2).unwrap();
+
+                        collector.insert(script_path, target);
                     }
                 }
             }
