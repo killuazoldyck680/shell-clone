@@ -487,7 +487,12 @@ fn main() {
 
                         let target = args.get(2).unwrap();
 
-                        collector.insert(script_path, target);
+                        collector.insert(target, script_path);
+                    } else {
+
+                         let second = args.get(1).unwrap();
+
+                        println!("complete: {second}: no completion specification");
                     }
                 }
             }
