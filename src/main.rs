@@ -134,6 +134,10 @@ fn main() {
                         }
 
  crossterm::event::KeyCode::Tab => {
+    let command_name = input.split_whitespace().next();
+
+
+
     let trimmed_input = input.trim_end();
     let space_idx = trimmed_input.rfind(' ');
     
