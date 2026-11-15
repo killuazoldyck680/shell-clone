@@ -138,10 +138,10 @@ fn main() {
     if let Some(command_name) = input.split_whitespace().collect::<Vec<&str>>() {
          if let Some(script_path) = collector.get(command_name) {
             if input.ends_with(' ') {
-                 let output = std::process::Command::new(&script_path).arg(command_name).arg("").arg(args().last()).output().expect("Error");
+                 let output = std::process::Command::new(&script_path).arg(command_name).arg("").arg(args.last()).output().expect("Error");
 
             } else {
-                 let output = std::process::Command::new(&script_path).arg(command_name).arg("").arg().output().expect("Error");
+                 let output = std::process::Command::new(&script_path).arg(command_name).arg(args.get(1)).arg(args.last()).output().expect("Error");
             }
 
        
