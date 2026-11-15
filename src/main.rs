@@ -138,6 +138,8 @@ fn main() {
          if let Some(script_path) = collector.get(command_name) {
         let output = std::process::Command::new(&script_path).output().expect("Error");
 
+        
+
             if let Some(candidate)  =  String::from_utf8_lossy(&output.stdout).lines().next() {
                 input.push_str(candidate);
                 input.push(' ');
@@ -146,6 +148,8 @@ fn main() {
                 io::stdout().flush().unwrap();
 
 
+            } else {
+                
             }
 
             return;
