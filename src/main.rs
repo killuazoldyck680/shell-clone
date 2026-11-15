@@ -135,7 +135,7 @@ fn main() {
                         }
 
  crossterm::event::KeyCode::Tab => {
-    if let Some(command_name) = input.split_whitespace().collect::<Vec<&str>>() {
+    let tokens = input.split_whitespace().collect::<Vec<&str>>();
          if let Some(script_path) = collector.get(command_name) {
             if input.ends_with(' ') {
                  let output = std::process::Command::new(&script_path).arg(command_name).arg("").arg(args.last()).output().expect("Error");
@@ -171,7 +171,7 @@ fn main() {
 
     }
 
-    }
+    
    
     
     
