@@ -136,8 +136,12 @@ fn main() {
  crossterm::event::KeyCode::Tab => {
     if let Some(command_name) = input.split_whitespace().next() {
          if let Some(script_path) = collector.get(command_name) {
-        let output = std::process::Command::new(&script_path).arg().output().expect("Error");
+            if input.ends_with(' ') {
+                 let output = std::process::Command::new(&script_path).arg(command_name,"","").output().expect("Error");
 
+            }
+
+       
         
 
             if let Some(candidate)  =  String::from_utf8_lossy(&output.stdout).lines().next() {
