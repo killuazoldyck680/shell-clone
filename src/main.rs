@@ -139,16 +139,12 @@ fn main() {
 
     if !tokens.is_empty() {
         let command_name = tokens[0];
-    }
 
-  
-         if let Some(script_path) = collector.get(command_name) {
-            if input.ends_with(' ') {
-                 let output = std::process::Command::new(&script_path).arg(command_name).arg("").arg(tokens.last()).output().expect("Error");
-                 
-
+            if let Some(script_path) = collector.get(command_name) {
+           let (arg2, arg3) =  if input.ends_with(' ') {
+                
             } else {
-                 let output = std::process::Command::new(&script_path).arg(command_name).arg(args.get(1)).arg(args.last()).output().expect("Error");
+                 let output = std::process::Command::new(&script_path).arg(command_name).arg(*tokens.last().unwrap()).arg(args.last()).output().expect("Error");
             }
 
        
@@ -177,6 +173,10 @@ fn main() {
 
 
     }
+    }
+
+  
+     
 
     
    
