@@ -159,6 +159,10 @@ fn main() {
         
 
             if let Some(candidate)  =  String::from_utf8_lossy(&output.stdout).lines().next() {
+                if !arg2.is_empty() {
+                    input.truncate(input.len() - arg2.len());
+                }
+
                 input.push_str(candidate);
                 input.push(' ');
 
