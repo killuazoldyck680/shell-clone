@@ -141,14 +141,11 @@ fn main() {
         let command_name = tokens[0];
     }
 
-    let command_name = tokens.first();
+  
          if let Some(script_path) = collector.get(command_name) {
             if input.ends_with(' ') {
-                 let output = std::process::Command::new(&script_path).arg(command_name).arg(*tokens.last().unwrap_or(&"")).arg(if tokens.len() >= 2 {
-                   tokens[tokens.len() - 2] 
-                 } else {
-                     ""
-                 }).output().expect("Error");
+                 let output = std::process::Command::new(&script_path).arg(command_name).arg("").arg(tokens.last()).output().expect("Error");
+                 
 
             } else {
                  let output = std::process::Command::new(&script_path).arg(command_name).arg(args.get(1)).arg(args.last()).output().expect("Error");
