@@ -136,7 +136,7 @@ fn main() {
  crossterm::event::KeyCode::Tab => {
     if let Some(command_name) = input.split_whitespace().next() {
          if let Some(script_path) = collector.get(command_name) {
-        let output = std::process::Command::new(&script_path).output().expect("Error");
+        let output = std::process::Command::new(&script_path).arg().output().expect("Error");
 
         
 
