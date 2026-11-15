@@ -142,12 +142,20 @@ fn main() {
 
             if let Some(script_path) = collector.get(command_name) {
            let (arg2, arg3) =  if input.ends_with(' ') {
-                
+                let a3 = if tokens.len() > 1 { *tokens.last().unwrap() } else { "" };
+                ("", a3)
             } else {
-                 let output = std::process::Command::new(&script_path).arg(command_name).arg(*tokens.last().unwrap()).arg(args.last()).output().expect("Error");
-            }
+                let a2 = *tokens.last().unwrap();
+                let a3 = if tokens.len() >= 2 { tokens[tokens.len() - 2] } else { "" };
+                (a2, a3) 
+            };
 
-       
+       let output = std::process::Command::new(&script_path)
+                .arg(command_name)
+                .arg(arg2)
+                .arg(arg3)
+                .output()
+                .expect("Error");
         
 
             if let Some(candidate)  =  String::from_utf8_lossy(&output.stdout).lines().next() {
