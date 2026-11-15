@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::env::args;
 use std::fmt::format;
 use std::io::{self, Write};
 use std::ops::ControlFlow::Break;
@@ -134,11 +135,13 @@ fn main() {
                         }
 
  crossterm::event::KeyCode::Tab => {
-    if let Some(command_name) = input.split_whitespace().next() {
+    if let Some(command_name) = input.split_whitespace().collect::<Vec<&str>>() {
          if let Some(script_path) = collector.get(command_name) {
             if input.ends_with(' ') {
-                 let output = std::process::Command::new(&script_path).arg(command_name,"","").output().expect("Error");
+                 let output = std::process::Command::new(&script_path).arg(command_name).arg("").arg(args().last()).output().expect("Error");
 
+            } else {
+                 let output = std::process::Command::new(&script_path).arg(command_name).arg("").arg().output().expect("Error");
             }
 
        
