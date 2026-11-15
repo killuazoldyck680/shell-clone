@@ -149,7 +149,9 @@ fn main() {
 
 
             } else {
-                
+                print!("\x07");
+
+                io::stdout().flush().unwrap();
             }
 
             return;
