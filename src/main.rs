@@ -183,9 +183,19 @@ fn main() {
                     last_tab_input = None;
                 }
             } else {
-                
+               if last_tab_input.as_ref() == Some(&input) {
+                println!()
+
+                print!(candidates.join(" "));
+                print!("\r\x1b[K$ {}");
+               } else {
+                   print!("\x07");
+
+                   last_tab_input = Some(input.clone());
+               }
             }
 
+            return;
             
 
        
