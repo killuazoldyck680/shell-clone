@@ -161,12 +161,11 @@ fn main() {
                 .expect("Error");
         
 
-            
+             let stdout_str = String::from_utf8_lossy(&output.stdout);
 
-            let mut candidates = String::from_utf8_lossy(&output.stdout).lines().filter(|s| !s.is_empty()).collect::<Vec<&str>>();
 
-            let stdout_str = String::from_utf8_lossy(&output.stdout);
-
+            let mut candidates = stdout_str.lines().filter(|s| !s.is_empty()).collect::<Vec<&str>>()
+           
             stdout_str.lines();
 
             candidates.sort();
@@ -178,22 +177,26 @@ fn main() {
                 last_tab_input = None;
             } else if candidates.len() == 1 {
                 if !arg2.is_empty() {
-                    input.truncate(arg2.len());
+                    input.truncate(input.len() - arg2.len());
 
-                    input.push(candidates[0]);
-                    input.push(' ');
+                    
+                    print!("\r\x1b[K$ {}", input);
 
-                    print!("\r\x1b[K$ {}");
+                    io::stdout().flush().unwrap();
                     last_tab_input = None;
                 }
             } else {
                if last_tab_input.as_ref() == Some(&input) {
-                println!()
+                println!();
 
-                print!(candidates.join(" "));
-                print!("\r\x1b[K$ {}");
+                println!(candidates.join("  "));
+                print!("\r\x1b[K$ {}", input);
+
+                io::stdout().flush().unwrap()
+                last_tab_input = None;
                } else {
                    print!("\x07");
+                   io::stdout().flush().unwrap()
 
                    last_tab_input = Some(input.clone());
                }
