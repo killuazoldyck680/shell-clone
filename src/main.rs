@@ -178,7 +178,12 @@ fn main() {
 
                     input.push(candidates[0]);
                     input.push(' ');
+
+                    print!("\r\x1b[K$ {}");
+                    last_tab_input = None;
                 }
+            } else {
+                
             }
 
             
