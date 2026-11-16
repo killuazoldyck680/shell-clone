@@ -161,25 +161,9 @@ fn main() {
                 .expect("Error");
         
 
-            if let Some(candidate)  =  String::from_utf8_lossy(&output.stdout).lines().next() {
-                if !arg2.is_empty() {
-                    input.truncate(input.len() - arg2.len());
-                }
+            
 
-                input.push_str(candidate);
-                input.push(' ');
-
-                print!("\r\x1b[K$ {}", input);
-                io::stdout().flush().unwrap();
-
-
-            } else {
-                print!("\x07");
-
-                io::stdout().flush().unwrap();
-            }
-
-            return;
+            let candidates = input.lines().filter(|s| !s.is_empty()).collect::<Vec<&str>>();
 
             
 
