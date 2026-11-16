@@ -163,13 +163,22 @@ fn main() {
 
             
 
-            let mut candidates = String::from_utf8_lossy(&output.stdout).lines().filter(|s| !s.is_empty()).collect::<Vec<&str>>().sort();
+            let mut candidates = String::from_utf8_lossy(&output.stdout).lines().filter(|s| !s.is_empty()).collect::<Vec<&str>>();
+
+            candidates.sort();
 
             if candidates.is_empty() {
                 print!("\x07");
                 io::stdout().flush().unwrap();
-            } else if candidates == 1 {
-                
+
+                last_tab_input = None;
+            } else if candidates.len() == 1 {
+                if !arg2.is_empty() {
+                    input.truncate(arg2.len());
+
+                    input.push(candidates[0]);
+                    input.push(' ');
+                }
             }
 
             
