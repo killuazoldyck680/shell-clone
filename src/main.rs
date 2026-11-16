@@ -178,13 +178,15 @@ fn main() {
             } else if candidates.len() == 1 {
                 if !arg2.is_empty() {
                     input.truncate(input.len() - arg2.len());
+                }
+                    input.push_str(candidates[0]);
 
-                    
+                    input.push(' ');
                     print!("\r\x1b[K$ {}", input);
 
                     io::stdout().flush().unwrap();
                     last_tab_input = None;
-                }
+                
             } else {
                if last_tab_input.as_ref() == Some(&input) {
                 println!();
