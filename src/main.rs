@@ -150,11 +150,13 @@ fn main() {
                 (a2, a3) 
             };
 
+            let val = input.len().to_string();
        let output = std::process::Command::new(&script_path)
                 .arg(command_name)
                 .arg(arg2)
                 .arg(arg3)
                 .env("COMP_LINE", &input)
+                .env("COMP_POINT", val)
                 .output()
                 .expect("Error");
         
