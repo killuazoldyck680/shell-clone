@@ -166,7 +166,7 @@ fn main() {
             let candidates = input.lines().filter(|s| !s.is_empty()).collect::<Vec<&str>>();
 
             if candidates.is_empty() {
-                print!("{}, \x07");
+                print!("\x07");
                 io::stdout().flush().unwrap();
             }
 
