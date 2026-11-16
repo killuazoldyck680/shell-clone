@@ -165,6 +165,10 @@ fn main() {
 
             let mut candidates = String::from_utf8_lossy(&output.stdout).lines().filter(|s| !s.is_empty()).collect::<Vec<&str>>();
 
+            let stdout_str = String::from_utf8_lossy(&output.stdout);
+
+            stdout_str.lines();
+
             candidates.sort();
 
             if candidates.is_empty() {
