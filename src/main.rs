@@ -164,9 +164,9 @@ fn main() {
              let stdout_str = String::from_utf8_lossy(&output.stdout);
 
 
-            let mut candidates = stdout_str.lines().filter(|s| !s.is_empty()).collect::<Vec<&str>>()
+            let mut candidates = stdout_str.lines().filter(|s| !s.is_empty()).collect::<Vec<&str>>();
            
-            stdout_str.lines();
+            
 
             candidates.sort();
 
@@ -191,20 +191,20 @@ fn main() {
                if last_tab_input.as_ref() == Some(&input) {
                 println!();
 
-                println!(candidates.join("  "));
+                println!("{}", candidates.join("  "));
                 print!("\r\x1b[K$ {}", input);
 
-                io::stdout().flush().unwrap()
+                io::stdout().flush().unwrap();
                 last_tab_input = None;
                } else {
                    print!("\x07");
-                   io::stdout().flush().unwrap()
+                   io::stdout().flush().unwrap();
 
                    last_tab_input = Some(input.clone());
                }
             }
 
-            return;
+            continue;
             
 
        
@@ -561,8 +561,7 @@ fn main() {
             }
 
             "complete" => {
-                println!("[DEBUG] Entered complete block with args: {:?}", args);
-
+                
                 if !args.is_empty() {
                     let first = args
                     .get(0).unwrap();
