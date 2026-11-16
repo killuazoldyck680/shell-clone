@@ -154,6 +154,7 @@ fn main() {
                 .arg(command_name)
                 .arg(arg2)
                 .arg(arg3)
+                .env("COMP_LINE", &input)
                 .output()
                 .expect("Error");
         
