@@ -163,11 +163,13 @@ fn main() {
 
             
 
-            let candidates = input.lines().filter(|s| !s.is_empty()).collect::<Vec<&str>>();
+            let mut candidates = String::from_utf8_lossy(&output.stdout).lines().filter(|s| !s.is_empty()).collect::<Vec<&str>>().sort();
 
             if candidates.is_empty() {
                 print!("\x07");
                 io::stdout().flush().unwrap();
+            } else if candidates == 1 {
+                
             }
 
             
