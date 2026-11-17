@@ -592,7 +592,7 @@ fn main() {
                 if !args.is_empty() {
                     let first = args
                     .get(0).unwrap();
-                    
+                     
                     if first.as_str() == "-p" {
                         let second = args.get(1).unwrap();
 
@@ -611,7 +611,12 @@ fn main() {
                         let target = args.get(2).unwrap().to_string();
 
                         collector.insert(target, script_path);
-                    } else {
+                    } else if first.as_str() == "-r" {
+                        
+                    }
+                    
+                    
+                    else {
 
                          let second = args.get(1).unwrap();
 
