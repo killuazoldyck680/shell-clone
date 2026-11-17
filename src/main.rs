@@ -188,6 +188,11 @@ fn main() {
                     last_tab_input = None;
                 
             } else {
+                if !arg2.is_empty() {
+                    input.truncate();
+                }
+
+
                if last_tab_input.as_ref() == Some(&input) {
                 println!();
 
