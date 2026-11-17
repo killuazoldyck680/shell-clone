@@ -188,8 +188,12 @@ fn main() {
                     last_tab_input = None;
                 
             } else {
+                let lcp =candidates[0] - candidates[candidates.len() - 1];
+
                 if !arg2.is_empty() {
                     input.truncate(input.len() - arg2.len());
+
+                    input.push(lcp);
                 }
 
 
