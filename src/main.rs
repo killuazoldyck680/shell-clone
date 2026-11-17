@@ -196,14 +196,19 @@ fn main() {
 
                 let lcp = &first[..prefix_len];
 
-                if !arg2.is_empty() {
+                if lcp.len() > arg2.len() {
+                    if !arg2.is_empty() {
                     input.truncate(input.len() - arg2.len());
 
-                    input.push(lcp);
+                    input.push_str(lcp);
+                        print!("\r\x1b[K$ {}", input);
+                        io::stdout().flush().unwrap();
+                        last_tab_input = None;
+
                 }
 
-
-               if last_tab_input.as_ref() == Some(&input) {
+                } else {
+                    if last_tab_input.as_ref() == Some(&input) {
                 println!();
 
                 println!("{}", candidates.join("  "));
@@ -217,6 +222,11 @@ fn main() {
 
                    last_tab_input = Some(input.clone());
                }
+                }
+
+                
+
+               
             }
 
             continue;
