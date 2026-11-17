@@ -612,7 +612,7 @@ fn main() {
 
                         collector.insert(target, script_path);
                     } else if first.as_str() == "-r" {
-                        
+                        let second = args.get(1).unwrap();
                     }
                     
                     
