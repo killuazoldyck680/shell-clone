@@ -189,7 +189,7 @@ fn main() {
                 
             } else {
                 if !arg2.is_empty() {
-                    input.truncate();
+                    input.truncate(input.len() - arg2.len());
                 }
 
 
