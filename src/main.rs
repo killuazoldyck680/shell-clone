@@ -192,7 +192,7 @@ fn main() {
 
                 let last = candidates[candidates.len() - 1];
 
-               let prefix_len =  first.chars().zip(last.chars()).take_while(|(a,b)| a == b).map(|c,_| c.len_utf8()).sum::<usize>();
+               let prefix_len =  first.chars().zip(last.chars()).take_while(|(a,b)| a == b).map(|(c,_)| c.len_utf8()).sum::<usize>();
 
                 let lcp = &first[..prefix_len];
 
@@ -200,12 +200,14 @@ fn main() {
                     if !arg2.is_empty() {
                     input.truncate(input.len() - arg2.len());
 
-                    input.push_str(lcp);
+                   
+                }
+
+                 input.push_str(lcp);
                         print!("\r\x1b[K$ {}", input);
                         io::stdout().flush().unwrap();
                         last_tab_input = None;
 
-                }
 
                 } else {
                     if last_tab_input.as_ref() == Some(&input) {
