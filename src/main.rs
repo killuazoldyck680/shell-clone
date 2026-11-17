@@ -188,6 +188,10 @@ fn main() {
                     last_tab_input = None;
                 
             } else {
+                let first = candidates[0];
+
+                let last = candidates[candidates.len() - 1];
+
                 let lcp =candidates[0] - candidates[candidates.len() - 1];
 
                 if !arg2.is_empty() {
