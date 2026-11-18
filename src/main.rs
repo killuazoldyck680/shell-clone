@@ -512,7 +512,7 @@ fn main() {
             "type" => {
                 if let Some(target) = args.first() {
                     match target.as_str() {
-                        "echo" | "type" | "exit" | "pwd" | "cd" | "complete" => {
+                        "echo" | "type" | "exit" | "pwd" | "cd" | "complete" | "jobs" => {
                             println!("{} is a shell builtin", target);
                         }
                         _ => {
