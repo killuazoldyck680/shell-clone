@@ -627,6 +627,10 @@ fn main() {
                 }
             }
 
+            "jobs" => {
+                
+            }
+
             // This is the separate fallback arm for external programs
             _ => {
                 // Replace your external program lookup block (in the `_ =>` match arm) with this:
