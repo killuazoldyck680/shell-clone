@@ -87,6 +87,8 @@ fn main() {
 
     let mut collector = HashMap::new();
 
+    let job_counter = 0;
+
     loop {
         print!("$ ");
         io::stdout().flush().unwrap();
