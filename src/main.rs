@@ -574,7 +574,7 @@ fn main() {
                         target.to_string()
                     };
 
-                    println!("[DEBUG cd] Attempting to change directory to: '{}'", resolved_target);
+                   
                     let cur_dir = std::env::set_current_dir(&resolved_target);
 
                     match cur_dir {
@@ -628,7 +628,7 @@ fn main() {
             }
 
             "jobs" => {
-                
+
             }
 
             // This is the separate fallback arm for external programs
