@@ -655,7 +655,8 @@ fn main() {
                     executable_path = Some(command.to_string());
                 }
 
-                for dir in path.split(delimiter) {
+                if executable_path.is_none() {
+                     for dir in path.split(delimiter) {
                     let mut full_path = format!("{dir}/{command}");
                     let file_path = std::path::Path::new(&full_path);
                     let mut exists = file_path.exists();
@@ -686,6 +687,9 @@ fn main() {
                     }
                 }
 
+                }
+
+               
                 if let Some(exec_path) = executable_path {
                     let mut cmd = Command::new(&exec_path);
                     cmd.args(args);
