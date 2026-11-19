@@ -382,7 +382,9 @@ fn main() {
         let mut stderr_redirect_file: Option<std::fs::File> = None;
 
         if args.last() == "&" {
-            
+            args.pop();
+
+            let mut is_background = true;
         }
 
         let mut chars = input.chars().peekable();
