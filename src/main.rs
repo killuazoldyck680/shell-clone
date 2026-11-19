@@ -367,7 +367,7 @@ fn main() {
             continue;
         }
 
-        let mut args = Vec::new();
+        let mut args: Vec<String> = Vec::new();
 
         let mut current_arg = String::new();
 
@@ -383,7 +383,7 @@ fn main() {
 
         let mut is_background = false;
 
-        if args.last() == "&" {
+        if args.last().map(|s| s.as_str()) == Some("&") {
             args.pop();
 
             is_background = true;
