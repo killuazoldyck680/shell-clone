@@ -387,6 +387,8 @@ fn main() {
             let mut is_background = true;
         }
 
+      if args.is_empty() { continue; }  
+
         let mut chars = input.chars().peekable();
         while let Some(c) = chars.next() {
             if in_single_quote {
