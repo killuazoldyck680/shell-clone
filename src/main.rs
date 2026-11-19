@@ -381,17 +381,7 @@ fn main() {
 
         let mut stderr_redirect_file: Option<std::fs::File> = None;
 
-        let mut is_background = false;
-
-        if args.last().map(|s| s.as_str()) == Some("&") {
-            args.pop();
-
-            is_background = true;
-            
-        }
-
-      if args.is_empty() { continue; }  
-
+        
         let mut chars = input.chars().peekable();
         while let Some(c) = chars.next() {
             if in_single_quote {
@@ -442,10 +432,19 @@ fn main() {
             args.push(current_arg);
         }
 
-        if args.is_empty() {
-            continue;
+        let mut is_background = false;
+
+        if args.last().map(|s| s.as_str()) == Some("&") {
+            args.pop();
+
+            is_background = true;
+            
         }
 
+      if args.is_empty() { continue; }  
+
+
+        
         if args.len() >= 2 {
             if args[args.len() - 2] == ">"
                 || args[args.len() - 2] == "1>"
@@ -651,6 +650,10 @@ fn main() {
                 let path = std::env::var("PATH").unwrap_or_default();
                 let delimiter = if cfg!(windows) { ';' } else { ':' };
                 let mut executable_path = None;
+
+                if std::path::Path::new(command).exists() {
+                    executable_path = Some(command.to_string());
+                }
 
                 for dir in path.split(delimiter) {
                     let mut full_path = format!("{dir}/{command}");
