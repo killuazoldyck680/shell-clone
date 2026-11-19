@@ -707,7 +707,7 @@ fn main() {
                         None => {}
                     }
 
-                    match cmd.status() {
+                    match cmd.spawn() {
                         Ok(_status) => {}
 
                         Err(_) => {
