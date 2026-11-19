@@ -381,6 +381,10 @@ fn main() {
 
         let mut stderr_redirect_file: Option<std::fs::File> = None;
 
+        if args.last() == "&" {
+            
+        }
+
         let mut chars = input.chars().peekable();
         while let Some(c) = chars.next() {
             if in_single_quote {
