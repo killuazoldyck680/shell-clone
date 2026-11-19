@@ -708,7 +708,14 @@ fn main() {
                     }
 
                     match cmd.spawn() {
-                        Ok(_status) => {}
+                        Ok(mut child) => {
+                            if is_background {
+                                job_counter += 1;
+                                println!("[{}] {}", job_counter, child.id());
+                            } else {
+                                let _ = child.wait();
+                            }
+                        }
 
                         Err(_) => {
                             println!("{}: failed to execute", command)
