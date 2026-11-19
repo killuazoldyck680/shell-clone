@@ -381,10 +381,13 @@ fn main() {
 
         let mut stderr_redirect_file: Option<std::fs::File> = None;
 
+        let mut is_background = false;
+
         if args.last() == "&" {
             args.pop();
 
-            let mut is_background = true;
+            is_background = true;
+            
         }
 
       if args.is_empty() { continue; }  
