@@ -703,7 +703,9 @@ fn main() {
                         None => {
 
                             cmd.stdout(std::process::Stdio::inherit());
-                            
+
+                            cmd.stderr(std::process::Stdio::inherit());
+
                             
 
                         }
