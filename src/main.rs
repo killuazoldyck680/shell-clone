@@ -651,10 +651,9 @@ fn main() {
                 let delimiter = if cfg!(windows) { ';' } else { ':' };
                 let mut executable_path = None;
 
-                if std::path::Path::new(command).exists() {
-                    executable_path = Some(command.to_string());
-                }
-
+               if (command.contains('/') || command.contains('\\')) && std::path::Path::new(command).is_file() {
+    executable_path = Some(command.to_string());
+}
                 if executable_path.is_none() {
                      for dir in path.split(delimiter) {
                     let mut full_path = format!("{dir}/{command}");
@@ -701,7 +700,13 @@ fn main() {
                                 file.try_clone().expect("Failed to clone file"),
                             ));
                         }
-                        None => {}
+                        None => {
+
+                            cmd.stdout(std::process::Stdio::inherit());
+                            
+                            
+
+                        }
                     }
 
                     // Handle standard error redirection (2>)
