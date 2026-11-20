@@ -704,8 +704,7 @@ fn main() {
 
                             cmd.stdout(std::process::Stdio::inherit());
 
-                            cmd.stderr(std::process::Stdio::inherit());
-
+                            
                             
 
                         }
@@ -718,7 +717,10 @@ fn main() {
                                 file.try_clone().expect("Failed to clone file"),
                             ));
                         }
-                        None => {}
+                        None => {
+                            cmd.stderr(std::process::Stdio::inherit());
+
+                        }
                     }
 
                     match cmd.spawn() {
