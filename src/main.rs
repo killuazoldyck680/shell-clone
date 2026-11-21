@@ -653,10 +653,18 @@ fn main() {
             }
 
             "jobs" => {
-               for (idx,job) job_entries.iter().enumerate() {
+               for (idx,job) in job_entries.iter().enumerate() {
+
+                let mut marker = String::new();
                     if idx + 1 == job_entries.len() {
-                        let marker = "+";
+                         marker = "+".to_string();
+
+                        
+                    } else {
+                        marker = " ".to_string();
                     }
+
+                    println!("[{}]{}  {:<24}  {}", job.number, marker, job.status, job.original_command_string);
                }
 
                 
