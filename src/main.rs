@@ -741,6 +741,13 @@ fn main() {
                             if is_background {
                                 job_counter += 1;
                                 println!("[{}] {}", job_counter, child.id());
+
+                              let command_string =   format!("{} {}"command,args);
+
+                                let entry = JobStorage {
+
+                                }
+
                             } else {
                                 let _ = child.wait();
                             }
