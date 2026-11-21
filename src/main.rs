@@ -97,7 +97,7 @@ fn main() {
 
     }
 
-    let mut job_entries = Vec::new();
+    let mut job_entries: Vec<JobStorage> = Vec::new();
 
 
 
