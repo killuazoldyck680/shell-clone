@@ -91,13 +91,13 @@ fn main() {
 
     struct JobStorage {
         number: u64,
-        process_id: u64,
+        process_id: u32,
         original_command_string: String,
         status: String,
 
     }
 
-    let job_entries = Vec::new();
+    let mut job_entries = Vec::new();
 
 
 
