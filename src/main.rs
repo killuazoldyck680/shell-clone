@@ -89,6 +89,10 @@ fn main() {
 
     let mut job_counter = 0;
 
+    struct JobStorage {
+        
+    }
+
     loop {
         print!("$ ");
         io::stdout().flush().unwrap();
