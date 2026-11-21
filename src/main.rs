@@ -751,6 +751,8 @@ fn main() {
                                     process_id: child.id(),
                                 };
 
+                                job_entries.push(entry);
+
                             } else {
                                 let _ = child.wait();
                             }
