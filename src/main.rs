@@ -745,8 +745,8 @@ fn main() {
                               let command_string =   format!("{} {}"command,args);
 
                                 let entry = JobStorage {
-                                    command_string,
-                                    "Running"
+                                    original_command_string: command_string,
+                                    status : "Running".to_string(),
                                 }
 
                             } else {
