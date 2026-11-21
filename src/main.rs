@@ -97,7 +97,8 @@ fn main() {
 
     }
 
-    
+    let job_entries = Vec::new();
+
 
 
 
