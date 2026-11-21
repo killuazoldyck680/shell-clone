@@ -745,7 +745,8 @@ fn main() {
                               let command_string =   format!("{} {}"command,args);
 
                                 let entry = JobStorage {
-
+                                    command_string,
+                                    "Running"
                                 }
 
                             } else {
