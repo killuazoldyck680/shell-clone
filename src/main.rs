@@ -90,8 +90,16 @@ fn main() {
     let mut job_counter = 0;
 
     struct JobStorage {
-        
+        number: u64,
+        process_id: u64,
+        original_command_string: String,
+        status: String,
+
     }
+
+    
+
+
 
     loop {
         print!("$ ");
