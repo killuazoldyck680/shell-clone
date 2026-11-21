@@ -653,13 +653,12 @@ fn main() {
             }
 
             "jobs" => {
-
+                job_entries.iter().enumerate();
             }
 
-            // This is the separate fallback arm for external programs
+            
             _ => {
-                // Replace your external program lookup block (in the `_ =>` match arm) with this:
-
+               
                 let path = std::env::var("PATH").unwrap_or_default();
                 let delimiter = if cfg!(windows) { ';' } else { ':' };
                 let mut executable_path = None;
