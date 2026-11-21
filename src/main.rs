@@ -742,8 +742,11 @@ fn main() {
                                 job_counter += 1;
                                 println!("[{}] {}", job_counter, child.id());
 
-                              let command_string =   format!("{} {}"command,args);
-
+                             let command_string = if args.is_empty() {
+    format!("{command} &")
+} else {
+    format!("{command} {} &", args.join(" "))
+};
                                 let entry = JobStorage {
                                     original_command_string: command_string,
                                     status : "Running".to_string(),
