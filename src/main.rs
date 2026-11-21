@@ -747,7 +747,9 @@ fn main() {
                                 let entry = JobStorage {
                                     original_command_string: command_string,
                                     status : "Running".to_string(),
-                                }
+                                    number: job_counter,
+                                    process_id: child.id(),
+                                };
 
                             } else {
                                 let _ = child.wait();
