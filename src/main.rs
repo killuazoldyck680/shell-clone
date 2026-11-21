@@ -653,7 +653,13 @@ fn main() {
             }
 
             "jobs" => {
-                job_entries.iter().enumerate();
+               for (idx,job) job_entries.iter().enumerate() {
+                    if idx + 1 == job_entries.len() {
+                        let marker = "+";
+                    }
+               }
+
+                
             }
 
             
