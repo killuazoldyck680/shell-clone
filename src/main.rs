@@ -671,7 +671,13 @@ fn main() {
                     else {
                         marker = " ".to_string();
                     }
+                   match job.child.try_wait() {
+                    Ok(Some(status)) => {
 
+                    }
+
+                    None => {}
+                   }
                     println!("[{}]{}  {:<24}  {}", job.number, marker, job.status, job.original_command_string);
                }
 
