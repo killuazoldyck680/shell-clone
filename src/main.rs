@@ -662,7 +662,7 @@ fn main() {
                         
                     } else if job_entries.len() >= 2 {
                         if idx + 2 == job_entries.len() {
-                            marker
+                            marker = "-".to_string();
                         }
                     }
                     
