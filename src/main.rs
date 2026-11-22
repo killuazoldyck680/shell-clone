@@ -660,7 +660,11 @@ fn main() {
                          marker = "+".to_string();
 
                         
-                    } else {
+                    } else if job_entries.len() >= 2 {
+                        
+                    }
+                    
+                    else {
                         marker = " ".to_string();
                     }
 
