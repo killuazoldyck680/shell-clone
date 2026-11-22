@@ -764,6 +764,7 @@ fn main() {
 
                              let command_string = if args.is_empty() {
     format!("{command} &")
+    format!("{command}")
 } else {
     format!("{command} {} &", args.join(" "))
 };
@@ -771,7 +772,7 @@ fn main() {
                                     original_command_string: command_string,
                                     status : "Running".to_string(),
                                     number: job_counter,
-                                    process_id: child.id(),
+                                    process_id: child.id(), 
                                 };
 
                                 job_entries.push(entry);
