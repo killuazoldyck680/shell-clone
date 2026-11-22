@@ -655,7 +655,7 @@ fn main() {
             }
 
             "jobs" => {
-               for (idx,job) in job_entries.iter().enumerate() {
+               for (idx,job) in job_entries.iter_mut().enumerate() {
 
                 let mut marker = String::new();
                     if idx + 1 == job_entries.len() {
