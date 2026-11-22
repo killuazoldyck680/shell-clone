@@ -94,6 +94,7 @@ fn main() {
         process_id: u32,
         original_command_string: String,
         status: String,
+        child: std::process::Child,
 
     }
 
