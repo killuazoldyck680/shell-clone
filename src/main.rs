@@ -93,6 +93,7 @@ fn main() {
         number: u64,
         process_id: u32,
         original_command_string: String,
+        done_command_string: String,
         status: String,
         child: std::process::Child,
 
