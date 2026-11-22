@@ -762,9 +762,9 @@ fn main() {
                                 job_counter += 1;
                                 println!("[{}] {}", job_counter, child.id());
 
-                             if (command_with_amp, command_without_amp) = if args.is_empty() {
-                                (format!("{command} &"), format!("{command}"))
-                             } else {
+                             let (command_with_amp, command_without_amp) = if args.is_empty() {
+    (format!("{command} &"), format!("{command}"))
+} else {
     let joined_args = args.join(" ");
     (
         format!("{command} {joined_args} &"),
@@ -772,10 +772,11 @@ fn main() {
     )
 };
                                 let entry = JobStorage {
-                                    original_command_string: command_string,
+                                    original_command_string: command_with_amp,
+                                    done_command_string: command_without_amp,
                                     status : "Running".to_string(),
                                     number: job_counter,
-                                    process_id: child.id(), std::process::Child
+                                    process_id: child.id(), child
                                 };
 
                                 job_entries.push(entry);
