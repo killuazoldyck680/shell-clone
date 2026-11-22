@@ -764,7 +764,13 @@ fn main() {
 
                              if (command_with_amp, command_without_amp) = if args.is_empty() {
                                 (format!("{command} &"), format!("{command}"))
-                             }
+                             } else {
+    let joined_args = args.join(" ");
+    (
+        format!("{command} {joined_args} &"),
+        format!("{command} {joined_args}"),
+    )
+};
                                 let entry = JobStorage {
                                     original_command_string: command_string,
                                     status : "Running".to_string(),
