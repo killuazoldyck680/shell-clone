@@ -655,44 +655,37 @@ fn main() {
             }
 
             "jobs" => {
-               for (idx,job) in job_entries.iter_mut().enumerate() {
+    let total_jobs = job_entries.len();
 
-                let mut marker = String::new();
-                    if idx + 1 == job_entries.len() {
-                         marker = "+".to_string();
+    for (idx, job) in job_entries.iter_mut().enumerate() {
+        let marker = if idx + 1 == total_jobs {
+            "+"
+        } else if total_jobs >= 2 && idx + 2 == total_jobs {
+            "-"
+        } else {
+            " "
+        };
 
-                        
-                    } else if job_entries.len() >= 2 && idx + 2 == job_entries.len() {
-                        
-                            marker = "-".to_string();
-                        
-                    }
-                    
-                    else {
-                        marker = " ".to_string();
-                    }
-                   match job.child.try_wait() {
-                    Ok(Some(status)) => {
-                        if status.success() {
-                            job.status = "Done".to_string();
-
-                            println!("[{}]{}  {:<24}  {}", job.number, marker, job.status, job.done_command_string);
-                        } 
-                    }
-
-                    Ok(None) => {
-                        println!("[{}]{}  {:<24}  {}", job.number, marker, job.status, job.original_command_string);
-                    }
-
-                    Err(_) => {}
-                   }
-                   
-               }
-
-               job_entries.retain(|job| job.status != "Done");
-
-                
+        if let Ok(Some(status)) = job.child.try_wait() {
+            if status.success() {
+                job.status = "Done".to_string();
             }
+        }
+
+        let cmd_display = if job.status == "Done" {
+            &job.done_command_string
+        } else {
+            &job.original_command_string
+        };
+
+        println!(
+            "[{}]{}  {:<24}  {}",
+            job.number, marker, job.status, cmd_display
+        );
+    }
+
+    job_entries.retain(|job| job.status != "Done");
+}
 
             
             _ => {
