@@ -677,17 +677,19 @@ fn main() {
                             job.status = "Done".to_string();
 
                             println!("[{}]{}  {:<24}  {}", job.number, marker, job.status, job.done_command_string);
-                        }
+                        } 
                     }
 
-                    Ok(None) => {}
+                    Ok(None) => {
+                        println!("[{}]{}  {:<24}  {}", job.number, marker, job.status, job.original_command_string);
+                    }
 
                     Err(_) => {}
                    }
-                    println!("[{}]{}  {:<24}  {}", job.number, marker, job.status, job.original_command_string);
+                   
                }
 
-               job_entries.retain("Done");
+               job_entries.retain(|job| job.status != "Done");
 
                 
             }
