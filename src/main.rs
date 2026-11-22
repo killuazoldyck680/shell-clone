@@ -660,10 +660,10 @@ fn main() {
                          marker = "+".to_string();
 
                         
-                    } else if job_entries.len() >= 2 {
-                        if idx + 2 == job_entries.len() {
+                    } else if job_entries.len() >= 2 && idx + 2 == job_entries.len() {
+                        
                             marker = "-".to_string();
-                        }
+                        
                     }
                     
                     else {
