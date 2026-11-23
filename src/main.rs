@@ -692,7 +692,7 @@ fn main() {
     job_entries.retain(|job| job.status != "Done");
 
         for entries in job_entries.iter().map(|job| job.number).collect::<Vec<_>>() {
-            
+           let remaining_numbers = entries.sort_by(|a,b| b.cmp(a)); 
         }
 
 }
