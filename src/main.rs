@@ -667,12 +667,7 @@ fn main() {
             }
         }
 
-        let cmd_display = if job.status == "Done" {
-            &job.done_command_string
-        } else {
-            &job.original_command_string
-        };
-
+        
        
     }
 
