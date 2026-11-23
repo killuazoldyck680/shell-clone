@@ -673,21 +673,13 @@ fn main() {
             &job.original_command_string
         };
 
-        println!(
-            "[{}]{}  {:<24}  {}",
-            job.number, marker, job.status, cmd_display
-        );
+       
     }
 
-    
-        let marker = if job.number > job_entries {
-            "+"
-        } else if job.number <= 2 {
-            "-"
-        } else {
-            " "
-        };
-
+    for job in job_entries.iter() {
+        
+    }
+        
 
     job_entries.retain(|job| job.status != "Done");
 
@@ -704,7 +696,10 @@ fn main() {
         }
 
         
-
+         println!(
+            "[{}]{}  {:<24}  {}",
+            job.number, marker, job.status, cmd_display
+        );
 }
 
             
