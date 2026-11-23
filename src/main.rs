@@ -679,14 +679,7 @@ fn main() {
         );
     }
 
-    let marker = if idx + 1 == total_jobs {
-            "+"
-        } else if total_jobs >= 2 && idx + 2 == total_jobs {
-            "-"
-        } else {
-            " "
-        };
-
+    
         let marker = if job.number > job_entries {
             "+"
         } else if job.number <= 2 {
@@ -697,6 +690,11 @@ fn main() {
 
 
     job_entries.retain(|job| job.status != "Done");
+
+        for entries in job_entries.iter().map(|job| job.number).collect::<Vec<_>>() {
+            
+        }
+
 }
 
             
