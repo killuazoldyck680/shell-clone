@@ -677,7 +677,14 @@ fn main() {
     }
 
     for job in job_entries.iter() {
-        
+       number: job.number,
+       status: job.status.clone(),
+       if job.status == "Done" {
+        cmd: job.done_command_string.clone()
+       } else {
+           cmd: job.original_command_string.clone()
+       }
+         
     }
         
 
