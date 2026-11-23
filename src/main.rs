@@ -655,66 +655,44 @@ fn main() {
             }
 
             "jobs" => {
-
-                for job in job_entries.iter_mut() {
-        if let Ok(Some(status)) = job.child.try_wait() {
-            if status.success() {
-                job.status = "Done".to_string();
-            }
-        }
-    }
-    
-
-    
-
-    for (idx, job) in job_entries.iter_mut().enumerate() {
-        
-        if let Ok(Some(status)) = job.child.try_wait() {
-            if status.success() {
-                job.status = "Done".to_string();
-            }
-        }
-
-        
-       
-    }
-
     for job in job_entries.iter_mut() {
-       if job.status == "Done" {
-        (job.number, job.status.clone(), cmd)
-       } else {
-           
-       }
-         
+        if let Ok(Some(status)) = job.child.try_wait() {
+            if status.success() {
+                job.status = "Done".to_string();
+            }
+        }
     }
 
-    let cmd_display = if job.status == "Done" {
-            &job.done_command_string
-        } else {
-            &job.original_command_string
-        };
-
-        
+    let snapshot: Vec<(u64, String, String)> = job_entries
+        .iter()
+        .map(|job| {
+            let cmd = if job.status == "Done" {
+                job.done_command_string.clone()
+            } else {
+                job.original_command_string.clone()
+            };
+            (job.number, job.status.clone(), cmd)
+        })
+        .collect();
 
     job_entries.retain(|job| job.status != "Done");
 
-        for entries in job_entries.iter().map(|job| job.number).collect::<Vec<_>>() {
-           let remaining_numbers = entries.sort_by(|a,b| b.cmp(a)); 
+    let mut remaining_numbers: Vec<u64> = job_entries.iter().map(|job| job.number).collect();
+    remaining_numbers.sort_by(|a, b| b.cmp(a));
+    let highest = remaining_numbers.first().copied();
+    let second_highest = remaining_numbers.get(1).copied();
 
-          let markers =  if remaining_numbers[0] {
+    for (num, status, cmd) in snapshot {
+        let marker = if Some(num) == highest {
             "+"
-           } else if remaining_numbers[1]{
-               "-"
-           } else {
-               " "
-           };
-        }
+        } else if Some(num) == second_highest {
+            "-"
+        } else {
+            " "
+        };
 
-        
-         println!(
-            "[{}]{}  {:<24}  {}",
-            job.number, marker, job.status, cmd_display
-        );
+        println!("[{}]{}  {:<24}  {}", num, marker, status, cmd);
+    }
 }
 
             
