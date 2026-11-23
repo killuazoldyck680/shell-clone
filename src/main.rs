@@ -687,6 +687,14 @@ fn main() {
             " "
         };
 
+        let marker = if job.number > job_entries {
+            "+"
+        } else if job.number <= 2 {
+            "-"
+        } else {
+            " "
+        };
+
 
     job_entries.retain(|job| job.status != "Done");
 }
