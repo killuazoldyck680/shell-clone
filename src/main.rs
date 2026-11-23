@@ -657,15 +657,10 @@ fn main() {
             "jobs" => {
     let total_jobs = job_entries.len();
 
-    for (idx, job) in job_entries.iter_mut().enumerate() {
-        let marker = if idx + 1 == total_jobs {
-            "+"
-        } else if total_jobs >= 2 && idx + 2 == total_jobs {
-            "-"
-        } else {
-            " "
-        };
+    
 
+    for (idx, job) in job_entries.iter_mut().enumerate() {
+        
         if let Ok(Some(status)) = job.child.try_wait() {
             if status.success() {
                 job.status = "Done".to_string();
@@ -683,6 +678,15 @@ fn main() {
             job.number, marker, job.status, cmd_display
         );
     }
+
+    let marker = if idx + 1 == total_jobs {
+            "+"
+        } else if total_jobs >= 2 && idx + 2 == total_jobs {
+            "-"
+        } else {
+            " "
+        };
+
 
     job_entries.retain(|job| job.status != "Done");
 }
