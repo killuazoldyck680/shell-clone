@@ -655,7 +655,15 @@ fn main() {
             }
 
             "jobs" => {
-    let total_jobs = job_entries.len();
+
+                for job in job_entries.iter_mut() {
+        if let Ok(Some(status)) = job.child.try_wait() {
+            if status.success() {
+                job.status = "Done".to_string();
+            }
+        }
+    }
+    
 
     
 
@@ -671,16 +679,21 @@ fn main() {
        
     }
 
-    for job in job_entries.iter() {
-       number: job.number,
-       status: job.status.clone(),
+    for job in job_entries.iter_mut() {
        if job.status == "Done" {
-        cmd: job.done_command_string.clone()
+        (job.number, job.status.clone(), cmd)
        } else {
-           cmd: job.original_command_string.clone()
+           
        }
          
     }
+
+    let cmd_display = if job.status == "Done" {
+            &job.done_command_string
+        } else {
+            &job.original_command_string
+        };
+
         
 
     job_entries.retain(|job| job.status != "Done");
