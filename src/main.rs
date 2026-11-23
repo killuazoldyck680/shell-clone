@@ -693,7 +693,17 @@ fn main() {
 
         for entries in job_entries.iter().map(|job| job.number).collect::<Vec<_>>() {
            let remaining_numbers = entries.sort_by(|a,b| b.cmp(a)); 
+
+          let markers =  if remaining_numbers[0] {
+            "+"
+           } else if remaining_numbers[1]{
+               "-"
+           } else {
+               " "
+           };
         }
+
+        
 
 }
 
