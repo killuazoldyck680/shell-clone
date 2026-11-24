@@ -820,8 +820,8 @@ fn main() {
                              let result =    if job_entries.is_empty() {
                                     1
                                 } else {
-                                   job_entries.iter().map(|job| job.number).max() 
-                                }
+                                   job_entries.iter().map(|job| job.number).max().unwrap_or(0) + 1
+                                };
                                 println!("[{}] {}", job_counter, child.id());
 
                              let (command_with_amp, command_without_amp) = if args.is_empty() {
