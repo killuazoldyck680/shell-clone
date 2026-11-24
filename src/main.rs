@@ -817,7 +817,11 @@ fn main() {
                     match cmd.spawn() {
                         Ok(mut child) => {
                             if is_background {
-                                job_counter += 1;
+                                if job_entries.is_empty() {
+                                    1
+                                } else {
+                                    
+                                }
                                 println!("[{}] {}", job_counter, child.id());
 
                              let (command_with_amp, command_without_amp) = if args.is_empty() {
