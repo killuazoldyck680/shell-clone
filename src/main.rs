@@ -125,6 +125,9 @@ fn main() {
         })
         .collect();
 
+    job_entries.retain(|job| job.status != "Done");
+
+
 
 
 
