@@ -817,10 +817,10 @@ fn main() {
                     match cmd.spawn() {
                         Ok(mut child) => {
                             if is_background {
-                                if job_entries.is_empty() {
+                             let result =    if job_entries.is_empty() {
                                     1
                                 } else {
-                                    
+                                   job_entries.iter().map(|job| job.number).max() 
                                 }
                                 println!("[{}] {}", job_counter, child.id());
 
