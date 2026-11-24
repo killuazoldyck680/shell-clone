@@ -822,7 +822,7 @@ fn main() {
                                 } else {
                                    job_entries.iter().map(|job| job.number).max().unwrap_or(0) + 1
                                 };
-                                println!("[{}] {}", job_counter, child.id());
+                                println!("[{}] {}", result, child.id());
 
                              let (command_with_amp, command_without_amp) = if args.is_empty() {
     (format!("{command} &"), format!("{command}"))
@@ -837,7 +837,7 @@ fn main() {
                                     original_command_string: command_with_amp,
                                     done_command_string: command_without_amp,
                                     status : "Running".to_string(),
-                                    number: job_counter,
+                                    number: result,
                                     process_id: child.id(), child
                                 };
 
