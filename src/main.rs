@@ -105,6 +105,16 @@ fn main() {
 
 
     loop {
+        for job in job_entries.iter_mut() {
+        if let Ok(Some(status)) = job.child.try_wait() {
+            if status.success() {
+                job.status = "Done".to_string();
+            }
+        }
+    }
+
+
+
         print!("$ ");
         io::stdout().flush().unwrap();
 
