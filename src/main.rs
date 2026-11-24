@@ -115,6 +115,7 @@ fn main() {
 
     let snapshot: Vec<(u64, String, String)> = job_entries
         .iter()
+        .filter(|job| job.status == "Done")
         .map(|job| {
             let cmd = if job.status == "Done" {
                 job.done_command_string.clone()
