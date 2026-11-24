@@ -127,6 +127,23 @@ fn main() {
 
     job_entries.retain(|job| job.status != "Done");
 
+    let mut remaining_numbers: Vec<u64> = job_entries.iter().map(|job| job.number).collect();
+    remaining_numbers.sort_by(|a, b| b.cmp(a));
+    let highest = remaining_numbers.first().copied();
+    let second_highest = remaining_numbers.get(1).copied();
+
+    for (num, status, cmd) in snapshot {
+        let marker = if Some(num) == highest {
+            "+"
+        } else if Some(num) == second_highest {
+            "-"
+        } else {
+            " "
+        };
+
+        println!("[{}]{}  {:<24}  {}", num, marker, status, cmd);
+    }
+
 
 
 
