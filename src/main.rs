@@ -117,12 +117,8 @@ fn main() {
         .iter()
         .filter(|job| job.status == "Done")
         .map(|job| {
-            let cmd = if job.status == "Done" {
-                job.done_command_string.clone()
-            } else {
-                job.original_command_string.clone()
-            };
-            (job.number, job.status.clone(), cmd)
+            
+            (job.number, job.status.clone(),job.done_command_string.clone(), )
         })
         .collect();
 
