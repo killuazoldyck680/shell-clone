@@ -502,6 +502,11 @@ fn main() {
             let left_slice = &args[..pipe_idx];
 
             let right_slice = &args[pipe_idx + 1..];
+
+            if left_slice.is_empty() || right_slice.is_empty() {
+                println!("Error");
+                continue;
+            }
         }
 
 
