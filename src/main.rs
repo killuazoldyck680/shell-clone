@@ -513,6 +513,8 @@ fn main() {
             let right_arg = &right_slice[1..];
 
             let left_command = left_slice[0].to_string();
+
+            let right_command = right_slice[0].to_string();
         }
 
 
