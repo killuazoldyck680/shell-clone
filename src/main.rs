@@ -507,6 +507,8 @@ fn main() {
                 println!("Error");
                 continue;
             }
+
+            let left_arg = &left_slice[1..];
         }
 
 
