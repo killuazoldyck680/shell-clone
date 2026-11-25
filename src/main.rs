@@ -498,8 +498,12 @@ fn main() {
 
       if args.is_empty() { continue; }  
 
-      if args.iter().position(|s| s == "|") {
-        
+      let pipe = if args.iter().position(|s| s == "|") {
+        match pipe {
+            Some(pipe_idx) => {
+                
+            }
+        };
       }
 
 
