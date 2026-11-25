@@ -499,9 +499,7 @@ fn main() {
       if args.is_empty() { continue; }  
 
         if let Some(pipe_idx) = args.iter().position(|s| s == "|") {
-            Some(pipe_idx) => {
-                args.first().slice[1..]
-            }
+            let left_slice = &args[..pipe_idx];
         }
 
 
