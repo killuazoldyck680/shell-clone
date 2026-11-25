@@ -498,13 +498,11 @@ fn main() {
 
       if args.is_empty() { continue; }  
 
-      let pipe = if args.iter().position(|s| s == "|") {
-        match pipe {
+        if let Some(pipe_idx) = args.iter().position(|s| s == "|") {
             Some(pipe_idx) => {
-                
+                args.first().slice[1..]
             }
-        };
-      }
+        }
 
 
         
