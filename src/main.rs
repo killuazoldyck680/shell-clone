@@ -500,6 +500,8 @@ fn main() {
 
         if let Some(pipe_idx) = args.iter().position(|s| s == "|") {
             let left_slice = &args[..pipe_idx];
+
+            let right_slice = &args[pipe_idx + 1..];
         }
 
 
