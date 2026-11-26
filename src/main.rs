@@ -561,6 +561,47 @@ fn main() {
 
                 }
 
+
+
+
+                 if (right_command.contains('/') || right_command.contains('\\')) && std::path::Path::new(right_command).is_file() {
+     right_exec = Some(right_command.to_string());
+}
+                if right_exec.is_none() {
+                     for dir in path.split(delimiter) {
+                    let mut full_path = format!("{dir}/{left_command}");
+                    let file_path = std::path::Path::new(&full_path);
+                    let mut exists = file_path.exists();
+
+                    
+                    if !exists && cfg!(windows) {
+                        let exe_path = format!("{dir}/{right_command}.exe");
+                        if std::path::Path::new(&exe_path).exists() {
+                            full_path = exe_path;
+                            exists = true;
+                        }
+                    }
+
+                    if exists {
+                        #[cfg(unix)]
+                        {
+                            use std::os::unix::fs::PermissionsExt;
+                            if let Ok(metadata) = std::fs::metadata(&full_path) {
+                                if metadata.permissions().mode() & 0o111 == 0 {
+                                    continue;
+                                }
+                            } else {
+                                continue;
+                            }
+                        }
+                        right_exec = Some(full_path);
+                        break;
+                    }
+                }
+
+                }
+
+
         }
 
 
