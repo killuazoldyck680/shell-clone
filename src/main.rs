@@ -502,6 +502,8 @@ fn main() {
             let path = std::env::var("PATH").unwrap_or_default();
                 let delimiter = if cfg!(windows) { ';' } else { ':' };
 
+                let left_exec = None;
+
             let left_slice = &args[..pipe_idx];
 
             let right_slice = &args[pipe_idx + 1..];
@@ -520,11 +522,11 @@ fn main() {
             let right_command = right_slice[0].as_str();
 
             if (left_command.contains('/') || left_command.contains('\\')) && std::path::Path::new(left_command).is_file() {
-    executable_path = Some(left_command.to_string());
+     left_exec = Some(left_command.to_string());
 }
-                if executable_path.is_none() {
+                if .is_none() {
                      for dir in path.split(delimiter) {
-                    let mut full_path = format!("{dir}/{command}");
+                    let mut full_path = format!("{dir}/{left_command}");
                     let file_path = std::path::Path::new(&full_path);
                     let mut exists = file_path.exists();
 
