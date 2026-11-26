@@ -502,7 +502,10 @@ fn main() {
             let path = std::env::var("PATH").unwrap_or_default();
                 let delimiter = if cfg!(windows) { ';' } else { ':' };
 
-                let left_exec = None;
+                let mut left_exec = None;
+
+                let mut right_exec = None;
+
 
             let left_slice = &args[..pipe_idx];
 
@@ -524,7 +527,7 @@ fn main() {
             if (left_command.contains('/') || left_command.contains('\\')) && std::path::Path::new(left_command).is_file() {
      left_exec = Some(left_command.to_string());
 }
-                if .is_none() {
+                if left_exec.is_none() {
                      for dir in path.split(delimiter) {
                     let mut full_path = format!("{dir}/{left_command}");
                     let file_path = std::path::Path::new(&full_path);
@@ -551,7 +554,7 @@ fn main() {
                                 continue;
                             }
                         }
-                        executable_path = Some(full_path);
+                        left_exec = Some(full_path);
                         break;
                     }
                 }
