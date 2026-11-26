@@ -519,8 +519,8 @@ fn main() {
 
             let right_command = right_slice[0].as_str();
 
-            if (command.contains('/') || command.contains('\\')) && std::path::Path::new(command).is_file() {
-    executable_path = Some(command.to_string());
+            if (left_command.contains('/') || left_command.contains('\\')) && std::path::Path::new(left_command).is_file() {
+    executable_path = Some(left_command.to_string());
 }
                 if executable_path.is_none() {
                      for dir in path.split(delimiter) {
@@ -530,7 +530,7 @@ fn main() {
 
                     
                     if !exists && cfg!(windows) {
-                        let exe_path = format!("{dir}/{command}.exe");
+                        let exe_path = format!("{dir}/{left_command}.exe");
                         if std::path::Path::new(&exe_path).exists() {
                             full_path = exe_path;
                             exists = true;
