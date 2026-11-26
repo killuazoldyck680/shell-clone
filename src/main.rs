@@ -499,6 +499,9 @@ fn main() {
       if args.is_empty() { continue; }  
 
         if let Some(pipe_idx) = args.iter().position(|s| s == "|") {
+            let path = std::env::var("PATH").unwrap_or_default();
+                let delimiter = if cfg!(windows) { ';' } else { ':' };
+
             let left_slice = &args[..pipe_idx];
 
             let right_slice = &args[pipe_idx + 1..];
