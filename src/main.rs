@@ -633,7 +633,18 @@ fn main() {
                 
                 match right_exec {
                     Some(right_path) => {
-                    let new_right_command  =     Command::new(right_path).args(right_arg).stdin();
+                    let new_right_command  =     Command::new(right_path).args(right_arg).stdin(pipe_stdin).stdout(std::process::Stdio::inherit());
+
+                    match new_right_command.spawn() {
+                       Ok(mut right_child) => {
+                        right_child.wait();
+                        left_child.wait();
+                       } 
+
+                       Err(_) => {
+                        continue;
+                       }
+                    }
                     }
 
                     None => {
