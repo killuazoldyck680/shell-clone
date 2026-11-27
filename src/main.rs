@@ -612,11 +612,12 @@ fn main() {
 
                 match right_exec {
                     Some(right_path) => {
-
+                    let new_command  =     Command::new().args(left_arg).stdout(std::process::Stdio::piped())
                     }
 
                     None => {
                         println!("{right_command}: not found")
+                        continue;
                     }
                 }
 
