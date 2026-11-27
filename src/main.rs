@@ -601,9 +601,9 @@ fn main() {
 
                 }
 
-                let left_child = None;
+                let mut left_child: Option<std::process::Child> = None;
 
-                let pipe_stdin = None;
+                let mut pipe_stdin: Option<std::process::Stdio> = None;
 
                 match left_exec {
                     Some(left_path) => {
@@ -633,12 +633,13 @@ fn main() {
                 
                 match right_exec {
                     Some(right_path) => {
-                    let new_right_command  =     Command::new(right_path).args(right_arg).stdin(pipe_stdin).stdout(std::process::Stdio::inherit());
+                    let new_right_command  =     Command::new(right_path).args(right_arg).stdin(pipe_stdin.take().unwrap()).stdout(std::process::Stdio::inherit());
 
                     match new_right_command.spawn() {
                        Ok(mut right_child) => {
                         right_child.wait();
-                        left_child.wait();
+                        left_child.as_mut().unwrap().wait();
+                        continue;
                        } 
 
                        Err(_) => {
