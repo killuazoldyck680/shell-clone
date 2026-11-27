@@ -605,7 +605,17 @@ fn main() {
                     Some(left_path) => {
                     let new_left_command  =     Command::new(left_path).args(left_arg).stdout(std::process::Stdio::piped());
 
-                    new_left_command.spawn().unwrap_or(continue;).wait();
+                    match new_left_command.spawn() {
+                        Ok(mut left_child) => {
+                           let pipe_stdin =  std::process::Stdio::from(left_child.stdout.take().unwrap());
+                           
+                           
+                        }
+
+                        Err(_) => {
+                            continue;
+                        }
+                    }
                     }
                     None => {
                         println!("{left_command}: not found");
