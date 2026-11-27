@@ -569,7 +569,7 @@ fn main() {
 }
                 if right_exec.is_none() {
                      for dir in path.split(delimiter) {
-                    let mut full_path = format!("{dir}/{left_command}");
+                    let mut full_path = format!("{dir}/{right_command}");
                     let file_path = std::path::Path::new(&full_path);
                     let mut exists = file_path.exists();
 
