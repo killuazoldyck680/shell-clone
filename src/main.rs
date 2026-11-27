@@ -609,6 +609,16 @@ fn main() {
                     }
                 }
 
+                match right_exec {
+                    Some() => {
+
+                    }
+
+                    None => {
+                        println!("{right_command}: not found")
+                    }
+                }
+
 
         }
 
