@@ -607,7 +607,11 @@ fn main() {
 
                 match left_exec {
                     Some(left_path) => {
-                    let new_left_command  =     Command::new(left_path).args(left_arg).stdout(std::process::Stdio::piped());
+
+
+                    let mut  new_left_command  =     Command::new(left_path);
+                    
+                    new_left_command.args(left_arg).stdout(std::process::Stdio::piped());
 
                     match new_left_command.spawn() {
                         Ok(mut left_child) => {
@@ -633,7 +637,9 @@ fn main() {
                 
                 match right_exec {
                     Some(right_path) => {
-                    let new_right_command  =     Command::new(right_path).args(right_arg).stdin(pipe_stdin.take().unwrap()).stdout(std::process::Stdio::inherit());
+                    let mut new_right_command  =     Command::new(right_path);
+                    
+                    new_right_command.args(right_arg).stdin(pipe_stdin.take().unwrap()).stdout(std::process::Stdio::inherit());
 
                     match new_right_command.spawn() {
                        Ok(mut right_child) => {
