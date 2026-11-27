@@ -614,9 +614,10 @@ fn main() {
                     new_left_command.args(left_arg).stdout(std::process::Stdio::piped());
 
                     match new_left_command.spawn() {
-                        Ok(mut left_child) => {
-                           let pipe_stdin =  std::process::Stdio::from(left_child.stdout.take().unwrap());
-                           
+                        Ok(mut spawned_left) => {
+                             pipe_stdin =  spawned_left.stdout.take().unwrap();'
+
+                             left_child = Some(spawned_left);
                            
                         }
 
