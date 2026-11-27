@@ -602,15 +602,16 @@ fn main() {
                 }
 
                 match left_exec {
-                    Some() => {}
+                    Some(left_path) => {}
 
                     None => {
                         println!("{left_command}: not found")
+                        continue;
                     }
                 }
 
                 match right_exec {
-                    Some() => {
+                    Some(right_path) => {
 
                     }
 
