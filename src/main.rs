@@ -604,6 +604,8 @@ fn main() {
                 match left_exec {
                     Some(left_path) => {
                     let new_left_command  =     Command::new(left_path).args(left_arg).stdout(std::process::Stdio::piped());
+
+                    new_left_command.spawn().unwrap_or(continue;).wait();
                     }
                     None => {
                         println!("{left_command}: not found");
