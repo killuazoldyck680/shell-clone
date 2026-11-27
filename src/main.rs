@@ -615,7 +615,7 @@ fn main() {
 
                     match new_left_command.spawn() {
                         Ok(mut spawned_left) => {
-                             pipe_stdin =  spawned_left.stdout.take().unwrap();'
+                             pipe_stdin = Some(std::process::Stdio::from(spawned_left.stdout.take().unwrap())) ;
 
                              left_child = Some(spawned_left);
                            
