@@ -601,6 +601,10 @@ fn main() {
 
                 }
 
+                let left_child = None;
+
+                let pipe_stdin = None;
+
                 match left_exec {
                     Some(left_path) => {
                     let new_left_command  =     Command::new(left_path).args(left_arg).stdout(std::process::Stdio::piped());
@@ -616,6 +620,9 @@ fn main() {
                             continue;
                         }
                     }
+
+
+                    
                     }
                     None => {
                         println!("{left_command}: not found");
@@ -623,9 +630,10 @@ fn main() {
                     }
                 }
 
+                
                 match right_exec {
                     Some(right_path) => {
-                    let new_right_command  =     Command::new(right_path).args(right_arg).stdin(std::process::Stdio::from());
+                    let new_right_command  =     Command::new(right_path).args(right_arg).stdin();
                     }
 
                     None => {
