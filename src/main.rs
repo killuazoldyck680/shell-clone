@@ -601,6 +601,14 @@ fn main() {
 
                 }
 
+                match left_exec {
+                    Some() => {}
+
+                    None => {
+                        println!("{left_command}: not found")
+                    }
+                }
+
 
         }
 
