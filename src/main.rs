@@ -602,21 +602,22 @@ fn main() {
                 }
 
                 match left_exec {
-                    Some(left_path) => {}
-
+                    Some(left_path) => {
+                    let new_left_command  =     Command::new(left_path).args(left_arg).stdout(std::process::Stdio::piped());
+                    }
                     None => {
-                        println!("{left_command}: not found")
+                        println!("{left_command}: not found");
                         continue;
                     }
                 }
 
                 match right_exec {
                     Some(right_path) => {
-                    let new_command  =     Command::new().args(left_arg).stdout(std::process::Stdio::piped())
+                    let new_right_command  =     Command::new(right_path).args(right_arg).stdin(std::process::Stdio::from());
                     }
 
                     None => {
-                        println!("{right_command}: not found")
+                        println!("{right_command}: not found");
                         continue;
                     }
                 }
